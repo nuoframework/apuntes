@@ -4,6 +4,10 @@
 En el caso de encontrar un panel de login, recomendamos hacer peticiones desde la terminal con curl y usando time para determinar si hay una posible enumeración de usuarios en función de si hay diferencias de respuesta con credenciales validas o no
 {% endhint %}
 
+{% hint style="info" %}
+Se recomienda revisar el archivo robots.txt
+{% endhint %}
+
 ## Tecnologías
 
 ### Revisión del código fuente
@@ -22,11 +26,15 @@ Para enumerar las tecnologías que tiene una web, podemos emplear la herramienta
 whatweb https://dominio.com/
 ```
 
-Otra opción es hacer uso de extensiones del navegador como "Wappalyzer" o "What Runs"
+Otra opción es hacer uso de extensiones del navegador como "Wappalyzer", "BuiltWith" o "What Runs"
 
 {% embed url="https://chromewebstore.google.com/detail/whatruns/cmkdbmfndkfgebldhnkbfhlneefdaaip" %}
 Instalación de la herramienta WhatRuns
 {% endembed %}
+
+
+
+{% embed url="https://chromewebstore.google.com/detail/builtwith-technology-prof/dapjbgnjinbpoindlpdmhochffioedbn" %}
 
 {% embed url="https://chromewebstore.google.com/detail/wappalyzer-technology-pro/gppongmhjkpfnbhagpmjfkannfbllamg" %}
 Instalación de la herramienta Wappalyzer

@@ -201,6 +201,8 @@ ffuf -H  "Host : FUZZ.domino.com" -u https://domino.com -w /Users/tanish/Documen
 
 ## Subdominios
 
+### Sublist3r
+
 Además de poder enumerar subdominios usando la fuerza bruta, podemos usar una herramienta muy conocida que funciona muy bien para esto, puesto que recopila diferentes fuentes como DNSDumpster, NetCraft...
 
 {% hint style="success" %}
@@ -215,7 +217,20 @@ Este es un ejemplo de escaneo:
 python3 sublist3r.py -d domino.com -v -o subdominos-dominio.txt
 ```
 
+### Google Dorks
 
+Podemos buscar subdominios con google usando la búsqueda avanzada. Para ello insertamos una wildcard (\*) en lugar del subdominio para que nos muestre los resultados:
+
+```
+site:*.dominio.com
+```
+
+{% hint style="success" %}
+Existen diferentes webs quye generan los dorks en base a un dominio y que nos puede servir apara agilizar la busqueda:
+
+* [https://pentest-tools.com/information-gathering/google-hacking](https://pentest-tools.com/information-gathering/google-hacking)
+* [https://taksec.github.io/google-dorks-bug-bounty/](https://taksec.github.io/google-dorks-bug-bounty/)
+{% endhint %}
 
 ## WAF (Web Application Firewall)
 

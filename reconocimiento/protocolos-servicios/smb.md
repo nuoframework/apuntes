@@ -24,7 +24,7 @@ smbclient -L 127.0.0.1 -N
 
 En el primer parámetro le indicamos el host donde está corriendo el servicio y con el parámetro `-N` le indicamos que queremos hacer uso de una [Null Session](https://www.blumira.com/glossary/null-session/)&#x20;
 
-<figure><img src="../.gitbook/assets/image (48).png" alt=""><figcaption><p>Captura de pantalla de smbclient</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (48).png" alt=""><figcaption><p>Captura de pantalla de smbclient</p></figcaption></figure>
 
 En la primera columna "Sharename" vemos el nombre de los recursos compartid, en la 2º el tipo de recurso y algunos detalles en la 3º
 
@@ -46,7 +46,7 @@ A diferencia de [smbclient](smb.md#smbclient), smbmap, nos permite saber adicion
 smbmap -H 127.0.0.1
 ```
 
-<figure><img src="../.gitbook/assets/image (49).png" alt=""><figcaption><p>Captura de pantalla de smbclient</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (49).png" alt=""><figcaption><p>Captura de pantalla de smbclient</p></figcaption></figure>
 
 #### Con Credenciales
 

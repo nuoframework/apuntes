@@ -32,9 +32,9 @@ Otra opción es hacer uso de extensiones del navegador como "Wappalyzer", "Built
 Instalación de la herramienta WhatRuns
 {% endembed %}
 
-
-
 {% embed url="https://chromewebstore.google.com/detail/builtwith-technology-prof/dapjbgnjinbpoindlpdmhochffioedbn" %}
+Instalación de la herramienta BuiltWith
+{% endembed %}
 
 {% embed url="https://chromewebstore.google.com/detail/wappalyzer-technology-pro/gppongmhjkpfnbhagpmjfkannfbllamg" %}
 Instalación de la herramienta Wappalyzer
@@ -197,4 +197,38 @@ Subdominios:
 
 ```bash
 ffuf -H  "Host : FUZZ.domino.com" -u https://domino.com -w /Users/tanish/Documents/SecLists-master/Discovery/DNS/bitquark-subdomains-top100000.txt -fs 0,4605
+```
+
+## Subdominios
+
+Además de poder enumerar subdominios usando la fuerza bruta, podemos usar una herramienta muy conocida que funciona muy bien para esto, puesto que recopila diferentes fuentes como DNSDumpster, NetCraft...
+
+{% hint style="success" %}
+Esta herramienta también puede realizar ataques de fuerza bruta
+{% endhint %}
+
+[https://github.com/aboul3la/Sublist3r](https://github.com/aboul3la/Sublist3r)
+
+Este es un ejemplo de escaneo:
+
+```bash
+python3 sublist3r.py -d domino.com -v -o subdominos-dominio.txt
+```
+
+
+
+## WAF (Web Application Firewall)
+
+Podemos detectar el uso de un WAF en una web, tras hacer diferentes escaneos y ver ciertos resultados de error, pero también podemos usar herramientas de detección.
+
+Una de ellas es `wafw00f`:
+
+[https://github.com/EnableSecurity/wafw00f](https://github.com/EnableSecurity/wafw00f)
+
+Este es un ejemplo en el cual la web se encuentra con el WAF de CloudFlare:
+
+<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+```bash
+wafw00f https://dominio.com -a -v
 ```

@@ -1,7 +1,7 @@
 # SNMP
 
 {% hint style="info" %}
-Este puerto/servicio solo se encuentra por UDP por lo que habrá que adecuar el escaneo ([#udp](enumeracion-de-red.md#udp "mention"))
+Este puerto/servicio solo se encuentra por UDP por lo que habrá que adecuar el escaneo ([#udp](../enumeracion-de-red.md#udp "mention"))
 {% endhint %}
 
 Este protocolo se encarga de intercambiar información por red, por lo que es interesante enumerarlo correctamente
@@ -20,7 +20,7 @@ El diccionario ser de tipo contraseñas como el rockyou.txt
 
 En este caso, la clave es "security":
 
-<figure><img src="../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10).png" alt=""><figcaption></figcaption></figure>
 
 ## Snmpwalk
 

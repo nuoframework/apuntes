@@ -17,7 +17,7 @@ ssh -i /ruta/id_rsa usuario@ip_host
 
 En el caso de que nos aparezca una advertencia como esta:
 
-<img src="../.gitbook/assets/image (22).png" alt="" data-size="original">
+<img src="../../.gitbook/assets/image (22).png" alt="" data-size="original">
 
 Deberemos de modificar los permisos:
 
@@ -55,4 +55,4 @@ Podemos enumerar los detalles del servicio con nmap. El servicio SSH (Secure She
 nmap -sCV -p22 127.0.0.1
 ```
 
-<figure><img src="../.gitbook/assets/image (53).png" alt=""><figcaption><p>Captura de pantalla de Nmap</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (53).png" alt=""><figcaption><p>Captura de pantalla de Nmap</p></figcaption></figure>

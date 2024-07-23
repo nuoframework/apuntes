@@ -26,7 +26,7 @@ run
 
 Ahora ejecutamos el payload en la maquina victima y obtenemos una sesión de meterpreter:
 
-<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 Una vez en la sesión de meterpreter (NO EN LA CMD DE WINDOWS), ponemos "`background`" y "`search local_exploit_suggester`":
 

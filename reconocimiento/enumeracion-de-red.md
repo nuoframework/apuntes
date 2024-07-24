@@ -46,7 +46,7 @@ Los equipos que están virtualizados, en la mac, los 4 primeros caracteres suele
 
 Para este caso usaremos la herramienta **NMAP** con el siguiente comando:
 
-<pre class="language-ruby"><code class="lang-ruby"><strong>nmap -oN hosts-avariable.txt -sn 192.168.1.0/24
+<pre class="language-ruby"><code class="lang-ruby"><strong>nmap -sn 192.168.1.0/24 -oN hosts-SUBNET.txt
 </strong></code></pre>
 
 {% hint style="success" %}
@@ -79,14 +79,14 @@ netdiscover -i eth0 -r 192.168.1.0/24
 
 ## Enumeración de puertos&#x20;
 
-### TCP
-
 En este caso, nuestro objetivo es enumerar mediante **NMAP** los puertos que están activos en una serie de maquinas. Imaginemos que hay una red con los siguientes equipos:
 
 * 192.168.1.12
 * 192.168.1.13
 * 192.168.1.14
 * 192.168.1.15
+
+### TCP
 
 Podemos hacerlo con el siguiente comando:
 

@@ -42,6 +42,20 @@ Si tras realizar la intrusión (o antes de ella sabemos la información de la ma
 Los equipos que están virtualizados, en la mac, los 4 primeros caracteres suelen coincidir con: `08:00`
 {% endhint %}
 
+{% hint style="info" %}
+Para verificar que un host está activo y tenemos alcance, podemos hacer uso de la utilidad de Ping. Además, podemos especificar los paquetes que queremos enviar. Para Linux:
+
+```bash
+ping -c 4 192.168.1.1
+```
+
+Para Windows
+
+```powershell
+ping -n 4 192.168.1.1
+```
+{% endhint %}
+
 ### Nmap
 
 Para este caso usaremos la herramienta **NMAP** con el siguiente comando:

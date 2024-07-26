@@ -23,7 +23,7 @@ Este comando nos permite saber que binarios podemos ejecutar sin ser root con lo
 
 Si nos sale una salida como esta, buscamos en [https://gtfobins.github.io/](https://gtfobins.github.io/) el comando para escalar:
 
-<figure><img src="../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="success" %}
 Recuerda que puedes ejecutar un script como root con el comando `sudo -u root /comando.sh`

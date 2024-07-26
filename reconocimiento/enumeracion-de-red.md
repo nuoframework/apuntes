@@ -210,5 +210,28 @@ Para hacer uso de los script que hay en una categoría, podemos usar el siguient
 nmap --script=categoria 192.168.1.1
 ```
 
-Tambien podemos combinar caracteristicas, por ejemplo, queremos saber información sobre versiones... pero quie sea seguro o no muy intrusivo. Puede leer más información haciendo [clic aquí](https://nmap.org/book/nse-usage.html#nse-script-selection)
+También podemos combinar características, por ejemplo, queremos saber información sobre versiones... pero que sea seguro o no muy intrusivo. Puede leer más información haciendo [clic aquí](https://nmap.org/book/nse-usage.html#nse-script-selection)
 {% endhint %}
+
+## Detección de Firewall
+
+Esta parte es muy importante en la enumeración, puesto que herramientas como los firewalls o los IDS pueden evitar que en los escaneos no se nos reporte toda la información. Imagina que un firewall, bloquea las solicitudes ICMP Echo Reply, en este caso, al hacer un escaneo con la herramienta fping, ciertos hosts no se nos mostrarían.
+
+En el caso de la enumeración de los puertos y servicios ocurre algo parecido, veamos un ejemplo:
+
+Este es un host Windows (se puede ver por los servicios):
+
+<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption><p>Captura de pantalla del escaneo de Nmap</p></figcaption></figure>
+
+En este caso, vemos como podemos comprobar si hay un sistema de defensa en distintos puertos. Para ello, ejecutamos un escaneo con el parámetro `-sA`. En el caso de que exista un sistema de defensa, nos mostrará el puerto como "filtrado" o "filtered" y en caso contrario "unfiltered":
+
+```bash
+nmap -Pn -sA -p80,22,3389 192.168.1.1
+```
+
+Esta sería la salida de ejemplo:
+
+<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption><p>Captura de pantalla del escaneo de Nmap</p></figcaption></figure>
+
+## Evasión de sistemas IDS
+

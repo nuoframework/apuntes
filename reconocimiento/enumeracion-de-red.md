@@ -145,14 +145,14 @@ nmap -sU --top-ports 1200 --min-rate=2000 -Pn 192.168.1.12
 Podemos usar el siguiente comando para obtener detalles sobre los servicios que corren en los puertos de las maquinas que hemos escaneado:
 
 ```java
-nmap -sCV --open -vvv -Pn -oN servicios.txt 192.168.1.12,13,14 -p22,80
+nmap -sCV --open -vvv -Pn -A -oN servicios.txt 192.168.1.12,13,14 -p22,80
 ```
 
 {% hint style="info" %}
 En el caso de que no se muestre la versión, se puede intensificar el escaneo con el parámetro `--version-intensity` seguido de la intensidad. 0 es baja y 9 es muy alta:&#x20;
 
 ```bash
-nmap -sCV --version-intensity 9 --open -vvv -Pn -oN servicios.txt 192.168.1.12,13,14 -p22,80
+nmap -sCV --version-intensity 9 --open -vvv -Pn -A -oN servicios.txt 192.168.1.12,13,14 -p22,80
 ```
 {% endhint %}
 
@@ -163,3 +163,52 @@ Para detectar servicios vulnerables, podemos usar NMAP, además con el uso de es
 ```bash
 nmap --script "vuln" -p22,139,80 192.168.1.12
 ```
+
+{% hint style="success" %}
+## NSE Nmap Scripts
+
+Podemos ver todos los scrips que tiene nmap disponibles ejecutando el siguiente comando:
+
+```bash
+ls -la /usr/share/nmap/scripts/
+```
+
+Para obtener ayuda sobre un script usamos el siguiente comando:
+
+```bash
+nmap --script-help=script-ejemplo
+```
+
+Para poder ejecutar un script  (o varios) en concreto ejecutamos nmap con el siguiente parámetro:
+
+```bash
+nmap --script=script-ejemplo,script-de-ejemplo2 192.168.1.1
+```
+
+En Nmap existen varías categorías de scripts. De hecho cada uno de los script disponibles está clasificado en cada una de ellas:
+
+* auth
+* broadcast
+* brute
+* default
+* discovery
+* dos
+* exploit
+* external
+* fuzzer
+* intrusive
+* malware
+* safe
+* version
+* vuln
+
+\*Puedes ver más información sobre cada categoría haciendo [clic aquí](https://nmap.org/book/nse-usage.html#nse-categories)
+
+Para hacer uso de los script que hay en una categoría, podemos usar el siguiente parámetro:
+
+```bash
+nmap --script=categoria 192.168.1.1
+```
+
+Tambien podemos combinar caracteristicas, por ejemplo, queremos saber información sobre versiones... pero quie sea seguro o no muy intrusivo. Puede leer más información haciendo [clic aquí](https://nmap.org/book/nse-usage.html#nse-script-selection)
+{% endhint %}

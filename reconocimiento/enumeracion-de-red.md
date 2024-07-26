@@ -1,8 +1,8 @@
 # 🛜 Enumeración de Red
 
-## Enumeración de información sobre IP
+## Identificación del SO
 
-### Identificar el sistema operativo de un host
+### TTL
 
 Para poder identificar el sistema operativo de un host/IP, podemos emplear una traza ICMP con la herramienta PING en la que dependiendo del TTL (Time To Live) que  obtengamos, corresponderá a un sistema u otro. Aquí las equivalencias:
 
@@ -22,6 +22,22 @@ Podemos comprobar si un host nos está enviado trazas ICMP (PING) con tcpdump:
 
 ```bash
 sudo tcpdump -i tun0 icmp
+```
+{% endhint %}
+
+### Nmap
+
+Podemos usar nmap para aplicar un descubrimiento de SO, para ello, ejecutaremos el siguiente comando:
+
+```bash
+nmap -O 192.168.1.1
+```
+
+{% hint style="warning" %}
+En el caso de que no se muestre la versión, se puede intensificar el escaneo con el parámetro `--osscan-guess`:
+
+```bash
+nmap -O --osscan-guess 192.168.1.1
 ```
 {% endhint %}
 
@@ -129,8 +145,16 @@ nmap -sU --top-ports 1200 --min-rate=2000 -Pn 192.168.1.12
 Podemos usar el siguiente comando para obtener detalles sobre los servicios que corren en los puertos de las maquinas que hemos escaneado:
 
 ```java
-nmap -sCV --open -vvv -Pn -oN servicios.txt 192.168.1.12,13,14,15 -p22,139,80
+nmap -sCV --open -vvv -Pn -oN servicios.txt 192.168.1.12,13,14 -p22,80
 ```
+
+{% hint style="info" %}
+En el caso de que no se muestre la versión, se puede intensificar el escaneo con el parámetro `--version-intensity` seguido de la intensidad. 0 es baja y 9 es muy alta:&#x20;
+
+```bash
+nmap -sCV --version-intensity 9 --open -vvv -Pn -oN servicios.txt 192.168.1.12,13,14 -p22,80
+```
+{% endhint %}
 
 ### Enumeración de servicios vulnerables
 

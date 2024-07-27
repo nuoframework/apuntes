@@ -10,7 +10,7 @@ SMB (Server Message Block), es un protocolo de comunicación de red utilizado pa
 
 ## Enumeración del servicio
 
-Tanto la versión utilizada en Windows (SMB) como la utilizada en Linux / Unix (Samba), se puede enumerar de la misma forma, estas suelen ejecutarse en el puerto 445 o 139 bajo el nombre "microsoft-ds" o "netbios-ssn".&#x20;
+Tanto la versión utilizada en Windows (SMB) como la utilizada en Linux / Unix (Samba), se puede enumerar de la misma forma, estas suelen ejecutarse en el puerto 445 o 139 bajo el nombre "microsoft-ds" o "netbios-ssn" por TCP y por UDP usan el puerto 137 y 138 bajo el nombre "netbios-ns" y "netbios-dgm" respectivamente.&#x20;
 
 ### SmbClient
 

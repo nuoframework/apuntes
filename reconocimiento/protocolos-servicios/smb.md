@@ -1,7 +1,3 @@
----
-description: En esta página aprenderás a enumerar y hacer fuerza bruta ante el servicio SMB
----
-
 # SMB
 
 {% hint style="info" %}

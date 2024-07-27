@@ -5,7 +5,6 @@
 ## 🔎 OSINT
 
 * [🌐 Google Hacking](osint/google-hacking.md)
-* [ℹ️ Obtención de información de Sujetos](osint/obtencion-de-informacion-de-sujetos.md)
 
 ## 👀 Reconocimiento
 

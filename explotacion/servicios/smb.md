@@ -52,3 +52,11 @@ Existe otro módulo llamado psexec (`exploit/windows/smb/psexec`) cuyo objetivo 
 * RHOSTS -> IP de la máquina victima
 * SMBUSser -> En el caso de que usemos un usuario concreto
 * SMBPass -> En el caso de que usemos una contraseña concreta
+
+## RCE
+
+Podemos ejecutar comandos con un usuario y contraseña de SMB usando [SmbMap](../../reconocimiento/protocolos-servicios/smb.md#smbmap) y el siguiente comando:
+
+```bash
+smbmap -u usuario -p password -H 192.168.1.1 -x 'comando'
+```

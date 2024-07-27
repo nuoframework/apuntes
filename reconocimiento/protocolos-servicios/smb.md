@@ -1,3 +1,7 @@
+---
+description: En esta página aprenderás a enumerar y hacer fuerza bruta ante el servicio SMB
+---
+
 # SMB
 
 {% hint style="info" %}
@@ -52,6 +56,14 @@ Si tenemos credenciales podemos ejecutar el siguiente comando para ver los recur
 smbmap -H 192.168.1.12 -u 'usuariojemeplo' -p 'contraseña'
 ```
 
+### Unidades conectadas
+
+Podemos ver las unidades visibles desde SMB con el parámetro `-L`:
+
+```wasm
+smbmap -H 192.168.1.12 -u 'usuariojemeplo' -p 'contraseña' -L
+```
+
 ### Crackmapexec
 
 Con crackmapexec también podemos enumerar el servicio SMB, en este caso, especificamos que queremos enumere SMB, la IP, y haciendo uso de una Null Session, con los parámetros `-u` y `-p` sin especificar credenciales y finalmente con el parámetro `--shares` listamos los recursos compartidos
@@ -80,6 +92,8 @@ enum4linux 192.168.1.10
 
 ## Conexión a los recursos compartidos
 
+### SmbClient
+
 Una vez hemos hecho el previo [reconocimiento](smb.md#enumeracion-del-servicio), y si este nos a permitido ver recursos compartidos a los que podamos acceder sin proporcionar credenciales, nos podemos conectar con smbclient de esta manera:
 
 ```perl
@@ -89,6 +103,25 @@ smbclient //127.0.0.1/nombre_recurso -N
 {% hint style="info" %}
 Para descargar un recurso a nuestra maquina, podemos hacer uso del comando `get archivo.txt` o para casos de descarga masiva el comando `mget *` el problema surge cuando tenemos que confirmar muchos archivos, para ello antes del ejecutar el comando `mget`, ejecutamos el comando`promt`
 {% endhint %}
+
+### SmbMap
+
+También podemos ver el contenido de una unidad desde [SmbMap ](smb.md#smbmap)con el siguiente comando:
+
+<pre class="language-bash"><code class="lang-bash"><strong>smbmap -H 192.168.1.1 -u 'usuariojemeplo' -p 'contraseña' -r 'C$'
+</strong></code></pre>
+
+Además con el parámetro `--upload`, podemos subir archivos locales a la unidad remota. Para ello, le pasamos dos valores, el primero será la ruta completa del archivo que queremos subir, y el segundo será la ruta donde queremos subir el archivo:
+
+```bash
+smbmap -H 192.168.1.1 -u 'usuariojemeplo' -p 'contraseña' --upload '/home/arcivo' 'C$\archivo'
+```
+
+Otra posibilidad es la de descargar archivos de las unidades. Usaremos el parámetro `--download` y le ponemos la ruta del archivo a descargar :
+
+```bash
+smbmap -H 192.168.1.1 -u 'usuariojemeplo' -p 'contraseña' --download 'C$\archivo.txt'
+```
 
 {% hint style="info" %}
 Para hacer más sencilla la navegación en el servidor, podemos montarnos el recurso en nuestro host de esta manera:

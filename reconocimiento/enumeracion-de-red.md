@@ -221,7 +221,7 @@ En el caso de la enumeración de los puertos y servicios ocurre algo parecido, v
 
 Este es un host Windows (se puede ver por los servicios):
 
-<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption><p>Captura de pantalla del escaneo de Nmap</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (9).png" alt=""><figcaption><p>Captura de pantalla del escaneo de Nmap</p></figcaption></figure>
 
 En este caso, vemos como podemos comprobar si hay un sistema de defensa en distintos puertos. Para ello, ejecutamos un escaneo con el parámetro `-sA`. En el caso de que exista un sistema de defensa, nos mostrará el puerto como "filtrado" o "filtered" y en caso contrario "unfiltered":
 
@@ -231,7 +231,7 @@ nmap -Pn -sA -p80,22,3389 192.168.1.1
 
 Esta sería la salida de ejemplo:
 
-<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption><p>Captura de pantalla del escaneo de Nmap</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1).png" alt=""><figcaption><p>Captura de pantalla del escaneo de Nmap</p></figcaption></figure>
 
 ## Evasión de sistemas IDS
 

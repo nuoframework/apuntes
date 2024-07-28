@@ -8,7 +8,7 @@ description: En esta página aprenderás a enumerar y hacer fuerza bruta ante el
 SMB (Server Message Block), es un protocolo de comunicación de red utilizado para compartir archivos, impresoras y otros recursos entre dispositivos de red. Este es muy utilizado en sistemas Windows. En cambio Samba es la versión libre y de código abierto del protocolo propietario de Windows utilizado en sistemas Linux, este proporciona una manera de compartir archivos y recursos entre dispositivos de red que ejecutan sistemas operativos diferentes.
 {% endhint %}
 
-## Enumeración del servicio
+## Enumeración de los recursos
 
 Tanto la versión utilizada en Windows (SMB) como la utilizada en Linux / Unix (Samba), se puede enumerar de la misma forma, estas suelen ejecutarse en el puerto 445 o 139 bajo el nombre "microsoft-ds" o "netbios-ssn" por TCP y por UDP usan el puerto 137 y 138 bajo el nombre "netbios-ns" y "netbios-dgm" respectivamente.&#x20;
 
@@ -84,11 +84,137 @@ crackmapexec smb 192.168.1.10 -u usuario -p diccionario.txt
 
 ### Enum4linux
 
-En este caso, podemos hacer una enumeración muy exustiva que incluso puede reportarnos usuarios, de manera muy sencilla con el siguiente comando:
+En este caso, podemos hacer una enumeración muy exaustiva que incluso puede reportarnos usuarios, de manera muy sencilla con el siguiente comando:
 
 ```ruby
 enum4linux 192.168.1.10
 ```
+
+## Enumeración de la versión
+
+### Nmap
+
+Podemos usar NMAP para enumerar la version de samba junto a otros detalles. Para ello empleamos el script de nmap "`smb-os-discovery.nse`":
+
+```bash
+nmap --script smb-os-discovery.nse -p 445 192.168.1.1
+```
+
+<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption><p>Salida del comando de nmap</p></figcaption></figure>
+
+### Metasploit
+
+Para saber la versión de Nmap a la que nos enfrentamos, usaremos el módulo "`auxiliary/scanner/smb/smb_version`", seguidamente, le introducimos la IP de la maquina y ejecutamos el exploit:
+
+```perl
+msfconsole
+
+use auxiliary/scanner/smb/smb_version
+
+set RHOSTS 192.126.1.1
+
+exploit
+```
+
+<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+
+### RpcClient
+
+También podemos hacer uso de RCPCLIENT para enumerar la versión de samba ante la que nos encontramos, para ello ejecutamos el comando:
+
+```bash
+rpcclient -U "" -N 192.168.1.12
+```
+
+<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+### Enum4Linux
+
+Otra opción es usar enum4linux para enumerar la versión y más detalles del servicio SMB:
+
+```bash
+enum4linux -o 192.168.1.1
+```
+
+<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+
+## Enumeración de los dialectos
+
+{% hint style="info" %}
+Los dialectos en SMB (Server Message Block) son versiones específicas del protocolo SMB. Cada dialecto introduce mejoras, nuevas características, y correcciones de seguridad con respecto a sus predecesores
+{% endhint %}
+
+### Nmap
+
+En este caso hacemos uso del script "`smb-protocols`":
+
+```bash
+nmap -p445 --script smb-protocols 192.168.1.1
+```
+
+<figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+
+## Enumeración de usuarios
+
+### Nmap
+
+Para enumerar usuarios mediante nmap, hacemos uso del script "`smb-enum-users.nse`":
+
+```bash
+nmap --script smb-enum-users.nse -p445 192.186.1.1
+```
+
+<figure><img src="../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+
+## Metasploit
+
+También podemos hacer uso del módulo "`auxiliary/scanner/smb/smb_enumusers`" de metasploit para la enumeración de usuarios:
+
+```perl
+msfconsole
+
+use auxiliary/scanner/smb/smb_enumusers
+
+set RHOSTS 192.168.1.1
+
+exploit
+```
+
+<figure><img src="../../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+
+### Enum4Linux
+
+En enum4linux, bastará con ejecutar el siguiente comando para descubrir usuarios de SMB:
+
+```bash
+enum4linux -U 192.168.1.1
+```
+
+<figure><img src="../../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+
+### RpcClient
+
+La enumeración de usuarios con rcpclient, la hacemos mediante el uso del siguiente comando. Una vez tengamos el promt de RPCCLIENT, ejecutamos el comando "`enumdomusers`":
+
+```bash
+rpcclient -U "" -N 192.168.1.1
+
+enumdomusers
+```
+
+<figure><img src="../../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
+
+#### Descubrimiento del SID de usuarios
+
+Para poder saber el SID de un usuario enumerado por rpcclient, usamos el comando "lookupnames" seguido del nombre de usuario:
+
+```bash
+rpcclient -U "" -N 192.168.1.1
+
+lookupnames USERNAME
+```
+
+<figure><img src="../../.gitbook/assets/image (78).png" alt=""><figcaption></figcaption></figure>
 
 ## Conexión a los recursos compartidos
 
@@ -144,3 +270,4 @@ Una vez queramos desmontar el recurso, lo podemos hacer con:
 umount /home/user
 ```
 {% endhint %}
+

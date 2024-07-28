@@ -17,6 +17,7 @@
   * [SMB](reconocimiento/protocolos-servicios/smb.md)
   * [RPC](reconocimiento/protocolos-servicios/rpc.md)
   * [MySQL](reconocimiento/protocolos-servicios/mysql.md)
+  * [MsSQL](reconocimiento/protocolos-servicios/mssql.md)
   * [RDP](reconocimiento/protocolos-servicios/rdp.md)
   * [SNMP](reconocimiento/protocolos-servicios/snmp.md)
   * [DNS](reconocimiento/protocolos-servicios/dns.md)
@@ -74,6 +75,7 @@
   * [FTP](explotacion/servicios/ftp.md)
   * [LDAP](explotacion/servicios/ldap.md)
   * [MySQL](explotacion/servicios/mysql.md)
+  * [MsSQL](explotacion/servicios/mssql.md)
   * [HTTP/S](explotacion/servicios/http-s.md)
 
 ## ⏭️ Post-explotación

@@ -26,23 +26,23 @@ run
 
 Ahora ejecutamos el payload en la maquina victima y obtenemos una sesión de meterpreter:
 
-<figure><img src="../.gitbook/assets/image (2) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Una vez en la sesión de meterpreter (NO EN LA CMD DE WINDOWS), ponemos "`background`" y "`search local_exploit_suggester`":
 
-<figure><img src="../.gitbook/assets/image (3) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Esta opción nos dará el exploit más adecuado para la escalada, lo seleccionamos "`use 0`" y miramos las opciones que tiene. En este caso, nos pide el ID de la sesión de meterpreter:
 
-<figure><img src="../.gitbook/assets/image (4) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Ponemos el ID de la sesión (lo puedes averiguar con el comando "`sessions -l`"). Ejecutamos:
 
-<figure><img src="../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (6) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Ahora, nos aparecerá una lista en colores verde y rojo. Los payloads de color rojo deberemos de omitirlos y centrarnos en los de verde.
 
-<figure><img src="../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (7) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Cualquiera de estos podría funcionar (no está asegurado), usamos uno de ellos seleccionándolo:
 

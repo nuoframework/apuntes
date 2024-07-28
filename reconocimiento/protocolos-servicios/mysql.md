@@ -42,7 +42,7 @@ SELECT * FROM tabla_ejemplo;
 
 ## Login Anónimo
 
-Podemos comprobar si el login anónimo está hebilitado para algún usuario con NMAP y el siguiente comando:
+Podemos comprobar si el login anónimo está habilitado para algún usuario con NMAP y el siguiente comando:
 
 ```bash
 nmap --script=mysql-empty-password -p 3306 192.168.1.1

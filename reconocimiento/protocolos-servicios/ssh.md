@@ -49,6 +49,8 @@ spc usuariovictima@ipvictima:/ruta/archivo/victima /ruta/maquina/host
 
 ## Enumeración del servicio
 
+### Nmap
+
 Podemos enumerar los detalles del servicio con nmap. El servicio SSH (Secure Shell), se encuentra en el puerto 22
 
 ```
@@ -56,3 +58,25 @@ nmap -sCV -p22 127.0.0.1
 ```
 
 <figure><img src="../../.gitbook/assets/image (53).png" alt=""><figcaption><p>Captura de pantalla de Nmap</p></figcaption></figure>
+
+### NetCat
+
+Podemos usar netcat para identificar la versión del servicio. Pâra ello ejecutaremos el siguiente comando:
+
+```bash
+nc 192.168.1.1
+```
+
+<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+
+## Enumeración de los metodos de autenticación
+
+### Nmap
+
+Mediante el siguiente comando, podemos enumerar los métodos existentes para que un usuario concreto se autentifique:
+
+```bash
+nmap -p 22 --script ssh-auth-methods --script-args="ssh.user=usuario-ejemplo" 192.168.1.1
+```
+
+<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>

@@ -57,6 +57,8 @@ Podemos usar metasploit para hacer fuerza bruta para SMB, el modulo es "`auxilia
 * RHOSTS -> IP de la máquina victima
 * VERBOSE -> Desactivar
 
+<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
 #### PSexec
 
 Existe otro módulo llamado psexec (`exploit/windows/smb/psexec`) cuyo objetivo es adquirir administración remota de la maquina

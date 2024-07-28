@@ -66,3 +66,13 @@ Para esto, usaremos el modulo "FTP Authentication Scanner". Deberemos de configu
 * PASSWORD -> En el caso de que usemos una contraseña concreta
 * PASS\_FILE -> En el caso de que usemos un diccionario de contraseñas
 * RHOSTS -> IP de la máquina victima
+
+### Nmap
+
+Podemos usar nmap para hacer una pequeña fuerza bruta al servicio FTP. En este caso, usaremos el script "`ftp-brute`" pasándole como argumentos el diccionario de usuarios:
+
+```bash
+nmap --script ftp-brute --script-args userdb=/root/users -p 21 192.168.1.1
+```
+
+<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>

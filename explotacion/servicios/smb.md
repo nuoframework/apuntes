@@ -32,6 +32,18 @@ En este comando, le indicamos la ruta del diccionario de usuarios con el paráme
 hydra -L users.txt -P passwords.txt smb://127.0.0.1 -t 15
 ```
 
+### Crackmapexec
+
+Podemos usar esta herramienta para probar una serie de contraseñas en base a un usuario o viceversa sustituyendo la contraseña por la ruta de un diccionario. Por ejemplo:
+
+```ruby
+crackmapexec smb 192.168.1.10 -u usuario -p diccionario.txt
+```
+
+{% hint style="warning" %}
+**ATENCIÓN!!** Puede que los resultados no sean reales y nos den falsos negativos, por lo que se recomienda revisar los resultados con smbmap (`smbmap -H 192.168.1.10 -u usuario -p contraseña1`)
+{% endhint %}
+
 ### Metasploit
 
 #### Fuerza Bruta

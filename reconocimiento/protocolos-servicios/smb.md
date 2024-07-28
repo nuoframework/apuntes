@@ -72,16 +72,6 @@ Con crackmapexec también podemos enumerar el servicio SMB, en este caso, especi
 crackmapexec smb 192.168.1.10 -u '' -p '' --shares
 ```
 
-Podemos usar esta herramienta para probar una serie de contraseñas en base a un usuario o viceversa sustituyendo la contraseña por la ruta de un diccionario. Por ejemplo:
-
-```ruby
-crackmapexec smb 192.168.1.10 -u usuario -p diccionario.txt
-```
-
-{% hint style="warning" %}
-**ATENCIÓN!!** Puede que los resultados no sean reales y nos den falsos negativos, por lo que se recomienda revisar los resultados con smbmap (`smbmap -H 192.168.1.10 -u usuario -p contraseña1`)
-{% endhint %}
-
 ### Nmap
 
 Podemos enumerar unidades y recursos compartidos con nmap usando el script "`smb-enum-shares.nse`" y este comando:

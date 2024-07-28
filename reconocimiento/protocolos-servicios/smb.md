@@ -82,13 +82,41 @@ crackmapexec smb 192.168.1.10 -u usuario -p diccionario.txt
 **ATENCIÓN!!** Puede que los resultados no sean reales y nos den falsos negativos, por lo que se recomienda revisar los resultados con smbmap (`smbmap -H 192.168.1.10 -u usuario -p contraseña1`)
 {% endhint %}
 
+### Nmap
+
+Podemos enumerar unidades y recursos compartidos con nmap usando el script "`smb-enum-shares.nse`" y este comando:
+
+```bash
+nmap --script smb-enum-shares.nse -p445 192.168.1.1
+```
+
+<figure><img src="../../.gitbook/assets/image (79).png" alt=""><figcaption></figcaption></figure>
+
+### Metasploit
+
+Otra de las opciones es usar el módulo "auxiliary/scanner/smb/smb\_enumshares" para enumerar unidades y recursos:
+
+```perl
+msfconsole
+
+use auxiliary/scanner/smb/smb_enumshares
+
+set RHOSTS 192.168.1.1
+
+exploit
+```
+
+<figure><img src="../../.gitbook/assets/image (80).png" alt=""><figcaption></figcaption></figure>
+
 ### Enum4linux
 
-En este caso, podemos hacer una enumeración muy exaustiva que incluso puede reportarnos usuarios, de manera muy sencilla con el siguiente comando:
+En este caso, podemos hacer una enumeración de manera muy sencilla con el siguiente comando:
 
 ```ruby
-enum4linux 192.168.1.10
+enum4linux -S 192.168.1.10
 ```
+
+<figure><img src="../../.gitbook/assets/image (81).png" alt=""><figcaption></figcaption></figure>
 
 ## Enumeración de la versión
 
@@ -166,7 +194,7 @@ nmap --script smb-enum-users.nse -p445 192.186.1.1
 
 <figure><img src="../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
 
-## Metasploit
+### Metasploit
 
 También podemos hacer uso del módulo "`auxiliary/scanner/smb/smb_enumusers`" de metasploit para la enumeración de usuarios:
 
@@ -225,6 +253,8 @@ Una vez hemos hecho el previo [reconocimiento](smb.md#enumeracion-del-servicio),
 ```perl
 smbclient //127.0.0.1/nombre_recurso -N
 ```
+
+<figure><img src="../../.gitbook/assets/image (82).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 Para descargar un recurso a nuestra maquina, podemos hacer uso del comando `get archivo.txt` o para casos de descarga masiva el comando `mget *` el problema surge cuando tenemos que confirmar muchos archivos, para ello antes del ejecutar el comando `mget`, ejecutamos el comando`promt`

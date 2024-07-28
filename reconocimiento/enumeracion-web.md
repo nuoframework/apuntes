@@ -8,7 +8,7 @@ En el caso de encontrar un panel de login, recomendamos hacer peticiones desde l
 Se recomienda revisar el archivo robots.txt
 {% endhint %}
 
-## Tecnologías
+## Enumeración de las Tecnologías
 
 ### Revisión del código fuente
 
@@ -18,7 +18,7 @@ La primera opción y la más tediosa es mirar el código fuente de la web (`CTRL
 Puede que también haya versiones detalladas en el pie de la página
 {% endhint %}
 
-### Herramientas
+### Extensiones
 
 Para enumerar las tecnologías que tiene una web, podemos emplear la herramienta "whatweb". P. ej:
 
@@ -45,6 +45,32 @@ Instalación de la herramienta Wappalyzer
 
 Las versiones antiguas o desactualizadas, suelen tener vulnerabilidades como [cross-site-scripting-xss.md](../explotacion/vulnerabilidades/cross-site-scripting-xss.md "mention") y [prototype-pollution.md](../explotacion/vulnerabilidades/prototype-pollution.md "mention")
 {% endhint %}
+
+### Http
+
+Podemos usar la herramienta http para identificar las cabeceras de las peticiones y la versión en algunos casos:
+
+```bash
+http 192.168.1.1
+```
+
+<figure><img src="../.gitbook/assets/image (84).png" alt=""><figcaption></figcaption></figure>
+
+### Nmap
+
+Podemos identificar la versión de las tecnologías con metasploit:
+
+```bash
+msfconsole
+
+use auxiliary/scanner/http/http_version
+
+set RHOSTS 192.168.1.1
+
+exploit
+```
+
+<figure><img src="../.gitbook/assets/image (85).png" alt=""><figcaption></figcaption></figure>
 
 ## Virtual Hosting
 
@@ -137,6 +163,22 @@ En este directorio encontrarás diferentes archivos txt en los que dependiendo d
 nmap -sCV --script=http-enum IP
 ```
 
+### Metasploit
+
+Podemos emplear el módulo "`auxiliary/scanner/http/brute_dirs`" para hacer fuerza bruta:
+
+```bash
+msfconsole
+
+use auxiliary/scanner/http/brute_dirs
+
+set RHOSTS 192.168.1.1
+
+exploit
+```
+
+<figure><img src="../.gitbook/assets/image (86).png" alt=""><figcaption></figcaption></figure>
+
 ### Wfuzz
 
 Para hacer busqueda de directorios:
@@ -149,7 +191,7 @@ wfuzz -c -t 200 -hc=404 -w /ruta/diccionario https://web.com/FUZZ
 Con la palabra "FUZZ" le indicamos a la herramientas donde queremos sustituir las palabras del diccionario
 {% endhint %}
 
-Para hacer busqueda de subdominios:
+Para hacer búsqueda de subdominios:
 
 ```bash
 wfuzz -c -t 200 -hc=404 -w /ruta/diccionario -H "Host: FUZZ.dominio.com" -u 192.168.1.12

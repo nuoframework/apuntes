@@ -10,7 +10,7 @@ coverY: 0
 # ▶️ Introducción
 
 {% hint style="info" %}
-Actualmente la web tiene información basica, esta irá aumentando su complejidad y será más completa en el futuro
+El contenido está en pleno desarrollo y recibe actualizaciones frecuentes por lo que hay información que puede estar incorrecta o incompleta
 {% endhint %}
 
 ## ¿Cómo funciona?

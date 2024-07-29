@@ -30,6 +30,37 @@ nmap -p 1433 --script ms-sql-empty-password 192.168.1.1
 
 <figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
 
+## Enumeración de los usuarios
+
+Podemos hacer una enumeración de los usuarios con el siguiente modulo de metasploit:
+
+```perl
+msfconsole
+
+use auxiliary/admin/mssql/mssql_enum_sql_logins
+
+set RHOSTS 10.0.20.101
+
+exploit
+```
+
+<figure><img src="../../.gitbook/assets/image (97).png" alt=""><figcaption></figcaption></figure>
+
+## Enumeración de grupos, cuentas de domino...
+
+Para ello, usaremos el siguiente modulo de metasploit:
+
+<pre class="language-perl"><code class="lang-perl">msfconsole
+
+use auxiliary/admin/mssql/mssql_enum_domain_accounts
+<strong>
+</strong><strong>set RHOSTS 10.0.20.101
+</strong><strong>
+</strong><strong>exploit
+</strong></code></pre>
+
+<figure><img src="../../.gitbook/assets/image (99).png" alt=""><figcaption></figcaption></figure>
+
 ## Enumeración de los sysusers
 
 Para ello, haremos uso de un script de NMAP. Para poder ejecutarlo es necesario tener acceso mediante credenciales al servicio (el login anonimo tambien es valido):

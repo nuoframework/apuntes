@@ -71,6 +71,7 @@
   * [Mass-Asignment Attack / Parameter Binding](explotacion/vulnerabilidades/mass-asignment-attack-parameter-binding.md)
   * [Open Redirect](explotacion/vulnerabilidades/open-redirect.md)
 * [🚾 Servicios](explotacion/servicios/README.md)
+  * [RDP](explotacion/servicios/rdp.md)
   * [SMB](explotacion/servicios/smb.md)
   * [SSH](explotacion/servicios/ssh.md)
   * [FTP](explotacion/servicios/ftp.md)

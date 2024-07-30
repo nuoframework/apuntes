@@ -75,4 +75,4 @@ Podemos usar nmap para hacer una pequeña fuerza bruta al servicio FTP. En este 
 nmap --script ftp-brute --script-args userdb=/root/users -p 21 192.168.1.1
 ```
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>

@@ -8,6 +8,10 @@ sudo msfdb init && msfconsole
 ```
 {% endhint %}
 
+{% hint style="info" %}
+Podemos establecer una variable global como LHOST o RHOSTS para que aplique a todos los módulos, para ello usamos el comando `setg`
+{% endhint %}
+
 ## Uso de metasploit para exploits y módulos
 
 Para buscar un modulo en metasploit, usamos el comando "`search modulo a buscar`"

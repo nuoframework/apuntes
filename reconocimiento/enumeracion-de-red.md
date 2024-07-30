@@ -231,7 +231,7 @@ nmap -Pn -sA -p80,22,3389 192.168.1.1
 
 Esta sería la salida de ejemplo:
 
-<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>Captura de pantalla del escaneo de Nmap</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption><p>Captura de pantalla del escaneo de Nmap</p></figcaption></figure>
 
 ## Evasión de sistemas IDS
 

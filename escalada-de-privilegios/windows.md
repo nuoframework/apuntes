@@ -1,5 +1,29 @@
 # 🪟 Windows
 
+## Bypassing UAC con UACMe
+
+{% hint style="info" %}
+El Control de Cuentas de Usuario (UAC) en Windows es una característica de seguridad que previene cambios no autorizados en el sistema. Cuando una acción requiere permisos administrativos, UAC solicita la confirmación del usuario mediante una ventana emergente. Esto ayuda a proteger contra malware y modificaciones no deseadas, asegurando que solo usuarios autorizados puedan realizar cambios críticos en el sistema.
+
+![](<../.gitbook/assets/image (1).png>)
+{% endhint %}
+
+{% hint style="warning" %}
+Para poder usar este método, necesitamos tener acceso a una cuenta que pertenezca al grupo de administradores locales de windows.
+
+Para comprobarlo, podemos ejecutar los siguientes comandos:
+
+```powershell
+net users
+
+net localgroup administrators
+```
+
+Ejemplo de un caso, en el que es viable este método:
+
+![](<../.gitbook/assets/image (2).png>)
+{% endhint %}
+
 ## Elevación automática con Metasploit
 
 Cuando tenemos una consola meterpreter, podemos usar el comando "`getsystem`" para realizar una sencilla elevación de privilegios de manera automática:
@@ -32,11 +56,11 @@ run
 
 Ahora ejecutamos el payload en la maquina victima y obtenemos una sesión de meterpreter:
 
-<figure><img src="../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Una vez en la sesión de meterpreter (NO EN LA CMD DE WINDOWS), ponemos "`background`" y "`search local_exploit_suggester`":
 
-<figure><img src="../.gitbook/assets/image (3) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Esta opción nos dará el exploit más adecuado para la escalada, lo seleccionamos "`use 0`" y miramos las opciones que tiene. En este caso, nos pide el ID de la sesión de meterpreter:
 

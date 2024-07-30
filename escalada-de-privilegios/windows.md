@@ -1,5 +1,11 @@
 # 🪟 Windows
 
+## Elevación automática con Metasploit
+
+Cuando tenemos una consola meterpreter, podemos usar el comando "`getsystem`" para realizar una sencilla elevación de privilegios de manera automática:
+
+<figure><img src="../.gitbook/assets/image (107).png" alt=""><figcaption></figcaption></figure>
+
 ## Metasploit + Msfvenom&#x20;
 
 Podemos escalar privilegios con metasploit en windows. En primer lugar deberemos de generar un payload con msfvenom ( [#reverse-shell-tcp-con-exe](../explotacion/msfvenom.md#reverse-shell-tcp-con-exe "mention")) y pasarlo a nuestra maquina victima.

@@ -86,15 +86,39 @@ Los siguientes S.O. fueron afectados:
 * **Windows Server 2016**
 {% endhint %}
 
-Para comprobar si el host es vulnerable, usaremos el siguientes script de nmap:
+### Detección
+
+#### Nmap
+
+Para comprobar si el host es vulnerable, usaremos el siguiente script de nmap:
 
 ```bash
 nmap -sV -p 445 --script=smb-vuln-ms17-010 192.168.1.1
 ```
 
+#### Metasploit
+
+También podemos optar por el modulo de metasploit:
+
+```bash
+/auxliary/scanner/smb/smb_ms10_010
+```
+
+### Explotación
+
+#### GitHub Tool
+
 Para explotar la vulnerabilidad, usaremos la siguiente herramienta:
 
-[https://github.com/3ndG4me/AutoBlue-MS17-010](https://github.com/3ndG4me/AutoBlue-MS17-010)
+{% @github-files/github-code-block url="https://github.com/3ndG4me/AutoBlue-MS17-010" %}
+
+#### Metasploit
+
+O el siguiente modulo de metasploit:
+
+```bash
+/exploit/windows/smb/ms17_010_ethernalblue
+```
 
 ## RCE
 

@@ -44,6 +44,7 @@
     * [⚠️ RCE - CVE-2018-7600](explotacion/cms/drupal/rce-cve-2018-7600.md)
   * [Magento](explotacion/cms/magento.md)
   * [Apache Tomcat](explotacion/cms/apache-tomcat.md)
+  * [Microsoft IIS / WebDAV](explotacion/cms/microsoft-iis-webdav.md)
 * [💯 Vulnerabilidades](explotacion/vulnerabilidades/README.md)
   * [SQL Injection (SQLi)](explotacion/vulnerabilidades/sql-injection-sqli/README.md)
     * [🧪 PortSwigger Lab 1](explotacion/vulnerabilidades/sql-injection-sqli/portswigger-lab-1.md)

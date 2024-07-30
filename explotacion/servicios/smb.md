@@ -67,6 +67,35 @@ Existe otro módulo llamado psexec (`exploit/windows/smb/psexec`) cuyo objetivo 
 * SMBUSser -> En el caso de que usemos un usuario concreto
 * SMBPass -> En el caso de que usemos una contraseña concreta
 
+## EthernalBlue (MS17-010)
+
+{% hint style="info" %}
+EternalBlue es una vulnerabilidad en el protocolo Server Message Block (SMB) de Microsoft, identificada como MS17-010. Esta vulnerabilidad permite a un atacante ejecutar código remoto en sistemas Windows sin necesidad de autenticación.
+
+Los siguientes S.O. fueron afectados:
+
+* **Windows Vista**
+* **Windows 7**
+* **Windows 8**
+* **Windows 8.1**
+* **Windows 10**
+* **Windows Server 2008**
+* **Windows Server 2008 R2**
+* **Windows Server 2012**
+* **Windows Server 2012 R2**
+* **Windows Server 2016**
+{% endhint %}
+
+Para comprobar si el host es vulnerable, usaremos el siguientes script de nmap:
+
+```bash
+nmap -sV -p 445 --script=smb-vuln-ms17-010 192.168.1.1
+```
+
+Para explotar la vulnerabilidad, usaremos la siguiente herramienta:
+
+[https://github.com/3ndG4me/AutoBlue-MS17-010](https://github.com/3ndG4me/AutoBlue-MS17-010)
+
 ## RCE
 
 Podemos ejecutar comandos con un usuario y contraseña de SMB usando [SmbMap](../../reconocimiento/protocolos-servicios/smb.md#smbmap) y el siguiente comando:

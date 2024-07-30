@@ -284,7 +284,7 @@ Una de ellas es `wafw00f`:
 
 Este es un ejemplo en el cual la web se encuentra con el WAF de CloudFlare:
 
-<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```bash
 wafw00f https://dominio.com -a -v

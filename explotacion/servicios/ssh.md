@@ -73,4 +73,4 @@ Podemos emplear el script "`ssh-brute`" para usar fuerza bruta. En este caso no 
 nmap -p 22 --script ssh-brute --script-args userdb=/root/users 192.168.1.1
 ```
 
-<figure><img src="../../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (1) (1).png" alt=""><figcaption></figcaption></figure>

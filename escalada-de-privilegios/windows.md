@@ -58,6 +58,10 @@ Ahora ejecutamos el payload en la maquina victima y obtenemos una sesión de met
 
 <figure><img src="../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
+{% hint style="success" %}
+En muchos casos en los que nos encontramos con que tenemos una meterpreter ya en el sistema, podemos ejecutar el comando "`run post/multi/recon/local_exploit_suggester`" para poder enumerar potenciales exploits para la escalada.
+{% endhint %}
+
 Una vez en la sesión de meterpreter (NO EN LA CMD DE WINDOWS), ponemos "`background`" y "`search local_exploit_suggester`":
 
 <figure><img src="../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>

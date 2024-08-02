@@ -145,7 +145,7 @@ nmap -sU --top-ports 1200 --min-rate=2000 -Pn 192.168.1.12
 Podemos usar el siguiente comando para obtener detalles sobre los servicios que corren en los puertos de las maquinas que hemos escaneado:
 
 ```java
-nmap -sCV --open -vvv -Pn -A -oN servicios.txt 192.168.1.12,13,14 -p22,80
+nmap -sCV --script "vuln" --open -vvv -Pn -A -oN servicios.txt 192.168.1.12,13,14 -p22,80
 ```
 
 {% hint style="info" %}

@@ -1,8 +1,6 @@
 # 🔬 Cracking
 
-## Cracking de contraseñas de archivos
-
-### Archivos ZIP
+## Archivos ZIP
 
 Cuando nos enfrentamos a un archivo comprimido cifrado, podremos crackearlo usando John The Ripper.
 
@@ -20,7 +18,7 @@ Una vez tengamos el hash del archivo, ejecutamos este comando:
 john --wordlist=/ruta/diccionario hash-archivo
 ```
 
-### Base de Datos de KeePass
+## Base de Datos de KeePass
 
 Cuando nos enfrentamos a una base de datos de keepass, podremos crackearla usando John The Ripper.
 
@@ -38,7 +36,7 @@ Una vez tengamos el hash del archivo, ejecutamos este comando:
 john --wordlist=/ruta/diccionario hash-archivo
 ```
 
-### SSH id\_rsa
+## SSH id\_rsa
 
 En el caso de que tengamos a nuestra disposición el archivo id\_rsa (la clave privada) de usuarios, podemos crackearlo con herramientas con el objetivo de obtener el usuario y contraseña validos para el servicio ssh:
 
@@ -68,7 +66,9 @@ ssh -i id_rsa usuario@ip
 
 <figure><img src="../.gitbook/assets/image (19).png" alt=""><figcaption></figcaption></figure>
 
-### Hash
+## Hashes
+
+### John The Ripper
 
 Cuando nos encontramos credenciales en forma de hash, también podemos realizar fuerza bruta para descubrir la contraseña real:
 
@@ -79,7 +79,7 @@ john --wordlist=/ruta/diccionario hash-archivo
 ```
 
 {% hint style="warning" %}
-En el caso de que nos de un error y no crackee el hash, es debido a que debemos especificarle el tipo de hash que es.
+En el caso de que nos de un error y no craquee el hash, es debido a que debemos especificarle el tipo de hash que es.
 
 Para saber el hash al que nos enfrentamos, acudimos a "Hash Identifier" (herramienta de kali) y le pasamos el hash:
 
@@ -92,3 +92,25 @@ john --format=Raw-MD5 --wordlist=/ruta/diccionario hash-archivo
 ```
 {% endhint %}
 
+### Hashcat
+
+Otra forma de craquear un hash es con hashcat, para ello empleamos el siguiente comando:
+
+```bash
+hashcat -m 0 -a 0 hash.txt /ruta/diccionario
+```
+
+En el parámetro `-m`, deberemos indicar el tipo de hash que queremos craquear, cada hash tiene un numero asignado, (por lo que lo podemos buscar en [https://hashcat.net/wiki/doku.php?id=example\_hashes](https://hashcat.net/wiki/doku.php?id=example\_hashes) o ejecutando `hashcat -h`) y en el parámetro `-a` indicar el tipo de ataque:
+
+```
+- [ Attack Modes ] -
+
+  # | Mode
+ ===+======
+  0 | Straight
+  1 | Combination
+  3 | Brute-force
+  6 | Hybrid Wordlist + Mask
+  7 | Hybrid Mask + Wordlist
+  9 | Association
+```

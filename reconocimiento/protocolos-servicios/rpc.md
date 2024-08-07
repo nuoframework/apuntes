@@ -13,3 +13,4 @@ Si conseguimos entrar y obtener un prompt, podremos ejecutar los siguientes coma
 * `srvinfo`  -> Obtiene información del sistema operativo
 * `querydispinfo`  -> Enumera usuarios validos
 * `enumdomusers`  -> Enumera usuarios validos
+* `lookupnames username` -> Enumera el SID completo de un usuario (es necesario especificar el usuario)

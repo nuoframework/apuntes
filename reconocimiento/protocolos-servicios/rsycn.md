@@ -40,6 +40,6 @@ rsync -av rsync://username@192.168.1.1:8730/shared_name ./ubicacion/local
 
 ## Subir archivos a la maquina host
 
-```
-rsync -av home_user/.ssh/ rsync://username@192.168.0.123/home_user/.ssh
+```bash
+rsync -av home_user/.ssh/ rsync://username@192.168.1.1/home_user/.ssh
 ```

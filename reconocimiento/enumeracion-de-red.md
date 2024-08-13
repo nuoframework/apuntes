@@ -124,6 +124,10 @@ Podemos hacerlo con el siguiente comando:
 sudo nmap -sS --min-rate 2000 -p- -Pn -vvv -n --open -oN puertos.txt 192.168.1.12,13,14,15
 ```
 
+```bash
+sudo nmap -sS -T4 -p- -Pn -vvv -n --open -oN puertos.txt 192.168.1.12,13,14,15
+```
+
 {% hint style="success" %}
 Puedes usar la siguiente expresión regular para formatear y ver una lista de puertos y usarlo en otros comandos:
 

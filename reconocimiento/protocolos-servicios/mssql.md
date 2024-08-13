@@ -8,7 +8,7 @@ Para los sistemas windows, podemos conocer la versión mediante otro método adi
 nmap --script ms-sql-info -p 1433 192.168.1.1
 ```
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Enumeración intensa
 
@@ -18,7 +18,7 @@ Podemos tratar de enumerar mayor información:
 nmap -p 1433 --script ms-sql-ntlm-info --script-args mssql.instance-port=1433 192.168.1.1
 ```
 
-<figure><img src="../../.gitbook/assets/image (2) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Login Anónimo
 
@@ -28,7 +28,7 @@ Con el siguiente script de Nmap podemos ver si se puede acceder sin necesidad de
 nmap -p 1433 --script ms-sql-empty-password 192.168.1.1
 ```
 
-<figure><img src="../../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Enumeración de los usuarios
 
@@ -79,4 +79,4 @@ Para ello empleamos un script de NMAP. Para su uso es necesario tener credencial
 nmap -p 1433 --script ms-sql-dump-hashes --script-args mssql.username=usuario,mssql.password=contraseña 192.168.1.1
 ```
 
-<figure><img src="../../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1) (1).png" alt=""><figcaption></figcaption></figure>

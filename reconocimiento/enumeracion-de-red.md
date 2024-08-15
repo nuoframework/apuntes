@@ -152,6 +152,10 @@ Podemos usar el siguiente comando para obtener detalles sobre los servicios que 
 nmap -sCV --script "vuln" --open -vvv -Pn -A -oN servicios.txt 192.168.1.12,13,14 -p22,80
 ```
 
+```java
+nmap -sCV --script="discovery,default,version" --open -vvv -Pn -A -oN servicios.txt 10.10.11.19 -p22,80
+```
+
 {% hint style="info" %}
 En el caso de que no se muestre la versión, se puede intensificar el escaneo con el parámetro `--version-intensity` seguido de la intensidad. 0 es baja y 9 es muy alta:&#x20;
 

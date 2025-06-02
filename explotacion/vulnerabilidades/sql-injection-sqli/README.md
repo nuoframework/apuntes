@@ -184,7 +184,20 @@ lo que estás variando es **el número de `NULL` en la segunda SELECT**, para qu
 
 </details>
 
-3.
+{% hint style="info" %}
+## Sintaxis específica de bases de datos Oracle
+
+En Oracle, toda consulta `SELECT` debe incluir la palabra clave `FROM` y especificar una tabla válida. Existe una tabla incorporada en Oracle llamada `DUAL` que se puede usar para este propósito. Por lo tanto, las consultas inyectadas en Oracle deberían tener este aspecto:\
+
+
+```sql
+' UNION SELECT NULL FROM DUAL--
+```
+
+\
+Los payloads descritos utilizan la secuencia de comentario de doble guion `--` para anular el resto de la consulta original a partir del punto de inyección. En MySQL, la secuencia de doble guion `--` debe ir seguida de un espacio. Alternativamente, se puede usar el carácter almohadilla `#` para indicar un comentario.\
+Cheat Sheet de PortSwigger
+{% endhint %}
 
 ## Usando SQLMap
 

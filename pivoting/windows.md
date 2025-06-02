@@ -16,7 +16,7 @@ Una vez estamos con la meterpreter activa, y vemos que la maquina tiene varias r
 
 Comprobamos que la sesión está en segundo plano y activa:
 
-<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
 
 ### Escaneo de hosts
 
@@ -38,7 +38,7 @@ run
 
 Nos encuentra los siguientes equipos:
 
-<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Después deberemos de enrutar el trafico, para ello empleamos un modulo de metasploit:
 
@@ -52,7 +52,7 @@ Y lo configuramos:
 set SESSION 1
 ```
 
-<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Escaneo de puertos en un host
 
@@ -72,13 +72,13 @@ Por defecto el modulo hace un escaneo del puerto 1 al 10.000 (se puede modificar
 set RHOSTS 192.168.1.1
 ```
 
-<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 run
 ```
 
-<figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Port Forwarding
 

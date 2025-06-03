@@ -48,7 +48,7 @@ SELECT nombre,precio FROM artículos WHERE categoría = 'Bañadores'-- -'
 
 * Añadiendo parámetros booleanos ej. `OR 1=1`, `OR 1=2`. Esto hace que la pagina pueda mostrar una respuesta diferente, y si lo hace significa que es vulnerable a una inyección sql
 
-### Inyecciones SQL UNION
+## Inyecciones SQL UNION
 
 {% hint style="info" %}
 El operador `UNION` se usa para ejecutar uno o más consultas `SELECT` y añade los resultados a la consulta original
@@ -72,7 +72,7 @@ Para que la consulta con `UNION` funcione, se deben cumplir dos requisitos clave
 * Saber **qué columnas devueltas desde la consulta original son de un tipo de datos adecuado** para contener los resultados de la consulta inyectada.
 {% endhint %}
 
-#### Determinando el número de columnas
+### Determinando el número de columnas
 
 Cuando hablamos de una SQLi usando la cláusula `UNION`, existen dos métodos efectivos para determinar cuántas columnas se devuelven desde la consulta original.
 
@@ -205,9 +205,9 @@ Los payloads descritos utilizan la secuencia de comentario de doble guion `--` p
 Cheat Sheet de PortSwigger
 {% endhint %}
 
-#### Identificación de los atributos de la tabla
+### Identificación de los atributos de la tabla
 
-Cuadno ya sabes cuántas columnas hay (en este ejemplo, cuatro). El siguiente paso es encontrar cuál o cuáles de esas columnas pueden mostrar texto sin causar un error de tipo. Si, por ejemplo, una columna es de tipo entero (INT) o de tipo fecha (DATETIME), inyectar una cadena como `'a'` en esa posición provocará un error de conversión, porque SQL Server (u otro motor) no puede convertir el texto `'a'` a un número. El mensaje típico sería:
+Cuando ya sabes cuántas columnas hay (en este ejemplo, cuatro). El siguiente paso es encontrar cuál o cuáles de esas columnas pueden mostrar texto sin causar un error de tipo. Si, por ejemplo, una columna es de tipo entero (INT) o de tipo fecha (DATETIME), inyectar una cadena como `'a'` en esa posición provocará un error de conversión, porque SQL Server (u otro motor) no puede convertir el texto `'a'` a un número. El mensaje típico sería:
 
 > Conversion failed when converting the varchar value 'a' to data type int.
 
@@ -230,9 +230,31 @@ Cuadno ya sabes cuántas columnas hay (en este ejemplo, cuatro). El siguiente pa
 
 En entornos reales, la aplicación vulnerable suele renderizar en pantalla los resultados de la consulta. Así que, al inyectar algo como `' UNION SELECT 'a',NULL,NULL,NULL--`, si la columna 1 es de tipo texto, el carácter “a” aparecerá en la página web como contenido adicional generado por tu payload.
 
+### Extrayendo datos de tablas
+
+Cuando se haya determinado el número de columnas devueltas por la consulta original y sepamos qué columnas pueden contener datos de tipo String, podremos obtener otros datos más interesantes.
+
+Supongamos que:
+
+* La consulta original devuelve dos columnas, las cuales pueden contener datos de cadena.
+* El punto de inyección es una cadena citada dentro del `WHERE` cláusula.
+* La base de datos contiene una tabla llamada `users` con las columnas `username` y `password`.
+
+En este ejemplo, puede recuperar el contenido de la `users` tabla enviando la entrada:
+
+```sql
+' UNION SELECT username, password FROM users--
+```
+
+{% hint style="warning" %}
+Para realizar este ataque, debe saber que hay una tabla llamada `users` con dos columnas llamadas `username` y `password`. Sin esta información, tendría que adivinar los nombres de las tablas y columnas. Todas las bases de datos modernas proporcionan formas de examinar la estructura de la base de datos y determinar qué tablas y columnas contienen.
+{% endhint %}
+
+### Recuperar múltiples valores dentro de una columna
 
 
-## Usando SQLMap
+
+## Automatizando SQLi (SQLMap)
 
 Para detectar y explotar inyecciones SQL, existe una herramienta automatizada llamada SQLMap.
 

@@ -89,7 +89,10 @@ Cuando hablamos de una SQLi usando la cláusula `UNION`, existen dos métodos ef
     \
     Esta serie de payloads modifica la consulta original para ordenar los resultados por diferentes columnas en el conjunto de resultados.\
     Cuando el índice de columna especificado excede el número de columnas reales en el conjunto de resultados, la base de datos devuelve un error, como:\
-    `The ORDER BY position number 3 is out of range of the number of items in the select list.`\
+
+
+    > The ORDER BY position number 3 is out of range of the number of items in the select list.
+
 
 2.  El segundo método implica presentar una serie de payloads `UNION SELECT` que especifican un número diferente de valores nulos:\
 
@@ -103,7 +106,10 @@ Cuando hablamos de una SQLi usando la cláusula `UNION`, existen dos métodos ef
 
     \
     Si el número de nulos no coincide con el número de columnas, la base de datos devuelve un error, como:\
-    `All queries combined using a UNION, INTERSECT or EXCEPT operator must have an equal number of expressions in their target lists.`\
+
+
+    > All queries combined using a UNION, INTERSECT or EXCEPT operator must have an equal number of expressions in their target lists.
+
     \
     Empleamos `NULL` como valores de retorno de la consulta `SELECT` inyectada porque **los tipos de datos de cada columna deben ser compatibles entre la consulta original y la inyectada**. Dado que **NULL es convertible a cualquier tipo de dato común**, se maximiza la probabilidad de que la carga útil funcione siempre y cuando el número de columnas sea correcto.\
 
@@ -198,6 +204,33 @@ En Oracle, toda consulta `SELECT` debe incluir la palabra clave `FROM` y especif
 Los payloads descritos utilizan la secuencia de comentario de doble guion `--` para anular el resto de la consulta original a partir del punto de inyección. En MySQL, la secuencia de doble guion `--` debe ir seguida de un espacio. Alternativamente, se puede usar el carácter almohadilla `#` para indicar un comentario.\
 Cheat Sheet de PortSwigger
 {% endhint %}
+
+#### Identificación de los atributos de la tabla
+
+Cuadno ya sabes cuántas columnas hay (en este ejemplo, cuatro). El siguiente paso es encontrar cuál o cuáles de esas columnas pueden mostrar texto sin causar un error de tipo. Si, por ejemplo, una columna es de tipo entero (INT) o de tipo fecha (DATETIME), inyectar una cadena como `'a'` en esa posición provocará un error de conversión, porque SQL Server (u otro motor) no puede convertir el texto `'a'` a un número. El mensaje típico sería:
+
+> Conversion failed when converting the varchar value 'a' to data type int.
+
+```sql
+' UNION SELECT 'a',NULL,NULL,NULL--
+' UNION SELECT NULL,'a',NULL,NULL--
+' UNION SELECT NULL,NULL,'a',NULL--
+' UNION SELECT NULL,NULL,NULL,'a'--
+```
+
+* En la primera línea, intentas colocar la cadena `'a'` en la **primera columna** y `NULL` en las demás.
+* En la segunda, pones `'a'` en la **segunda columna**, etc.
+* Cada vez que inyectas `'a'` en una posición, observas la respuesta de la aplicación.
+
+{% hint style="success" %}
+**Si al inyectar `'a'` en la columna X obtienes un error de conversión**, eso te indica que la columna X no acepta texto (por ejemplo, es INT o DATETIME).
+
+**Si no se produce ningún error y además la respuesta HTML (o del API) muestra contenido extra que incluye tu `'a'` inyectada**, entonces esa columna sí acepta texto y, por lo tanto, puedes usarla para recuperar datos de cadenas.
+{% endhint %}
+
+En entornos reales, la aplicación vulnerable suele renderizar en pantalla los resultados de la consulta. Así que, al inyectar algo como `' UNION SELECT 'a',NULL,NULL,NULL--`, si la columna 1 es de tipo texto, el carácter “a” aparecerá en la página web como contenido adicional generado por tu payload.
+
+
 
 ## Usando SQLMap
 

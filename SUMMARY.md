@@ -52,6 +52,7 @@
     * [🧪 PortSwigger Lab 1](explotacion/vulnerabilidades/sql-injection-sqli/portswigger-lab-1.md)
     * [🧪 PortSwigger Lab 2](explotacion/vulnerabilidades/sql-injection-sqli/portswigger-lab-2.md)
     * [🧪 PortSwigger Lab 3](explotacion/vulnerabilidades/sql-injection-sqli/portswigger-lab-3.md)
+    * [🧪 PortSwigger Lab 4](explotacion/vulnerabilidades/sql-injection-sqli/portswigger-lab-4.md)
   * [Cross-Site Scripting (XSS)](explotacion/vulnerabilidades/cross-site-scripting-xss.md)
   * [XML External Entity Injection (XXE)](explotacion/vulnerabilidades/xml-external-entity-injection-xxe.md)
   * [Local File Inclusion (LFI)](explotacion/vulnerabilidades/local-file-inclusion-lfi/README.md)

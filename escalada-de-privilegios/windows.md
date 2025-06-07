@@ -5,7 +5,7 @@
 {% hint style="info" %}
 El Control de Cuentas de Usuario (UAC) en Windows es una característica de seguridad que previene cambios no autorizados en el sistema. Cuando una acción requiere permisos administrativos, UAC solicita la confirmación del usuario mediante una ventana emergente. Esto ayuda a proteger contra malware y modificaciones no deseadas, asegurando que solo usuarios autorizados puedan realizar cambios críticos en el sistema.
 
-![](<../.gitbook/assets/image (1) (1) (1).png>)
+![](<../.gitbook/assets/image (1) (1) (1) (1).png>)
 {% endhint %}
 
 {% hint style="warning" %}
@@ -21,7 +21,7 @@ net localgroup administrators
 
 Ejemplo de un caso, en el que es viable este método:
 
-![](<../.gitbook/assets/image (2) (1) (1).png>)
+![](<../.gitbook/assets/image (2) (1) (1) (1).png>)
 {% endhint %}
 
 ## Elevación automática con Metasploit

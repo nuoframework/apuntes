@@ -16,7 +16,7 @@ Una vez estamos con la meterpreter activa, y vemos que la maquina tiene varias r
 
 Comprobamos que la sesión está en segundo plano y activa:
 
-<figure><img src="../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Escaneo de hosts
 
@@ -38,7 +38,7 @@ run
 
 Nos encuentra los siguientes equipos:
 
-<figure><img src="../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Después deberemos de enrutar el trafico, para ello empleamos un modulo de metasploit:
 
@@ -52,7 +52,7 @@ Y lo configuramos:
 set SESSION 1
 ```
 
-<figure><img src="../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Escaneo de puertos en un host
 
@@ -72,13 +72,13 @@ Por defecto el modulo hace un escaneo del puerto 1 al 10.000 (se puede modificar
 set RHOSTS 192.168.1.1
 ```
 
-<figure><img src="../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ```
 run
 ```
 
-<figure><img src="../.gitbook/assets/image (4) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (4) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Port Forwarding
 
@@ -98,12 +98,12 @@ set LOCAL_PORT  5000  # Puerto al que nos queremos traer el servicio en local
 set SESSION 1    # ID de la sesion con la meterpreter
 ```
 
-<figure><img src="../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
 Ahora, imaginad que estamos haciendo esto en esta red:
 
-<figure><img src="../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (6) (1).png" alt=""><figcaption></figcaption></figure>
 
 En el caso de que tengamos la meterpreter en la maquina windows, primero hacemos un escaneo de hosts en la red, después hacemos un escaneo de puertos al host y finalmente hacemos el port forwarding. En el port forwarding, imagina que la maquina linux, tiene el puerto 80 (web) abierto, y lo queremos ver, enumerar... lo que hacemos es pasarnos el puerto 80 de la linux a un puerto cualquiera de la windows con la ayuda de port forwarding y desde la kali (atacante) apuntamos a la ip de la windows (192.168.1.40) y al puerto que hayamos elegido, de esta manera podemos ver el puerto de la 3 maquina:
 
-<figure><img src="../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>

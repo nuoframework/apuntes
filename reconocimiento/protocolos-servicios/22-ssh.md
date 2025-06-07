@@ -67,7 +67,7 @@ Podemos usar netcat para identificar la versión del servicio. Pâra ello ejecut
 nc 192.168.1.1
 ```
 
-<figure><img src="../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1) (1) (1) (1) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## Enumeración de los metodos de autenticación
 
@@ -79,4 +79,4 @@ Mediante el siguiente comando, podemos enumerar los métodos existentes para que
 nmap -p 22 --script ssh-auth-methods --script-args="ssh.user=usuario-ejemplo" 192.168.1.1
 ```
 
-<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1) (1) (1) (2) (1).png" alt=""><figcaption></figcaption></figure>

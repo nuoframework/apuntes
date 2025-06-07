@@ -10,16 +10,16 @@ description: >-
 >
 > Para resolver el laboratorio, determine el número de columnas devueltas por la consulta realizando un ataque UNION de inyección SQL que devuelve una fila adicional que contiene valores nulos.
 
-<figure><img src="../../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure>
 
 Probamos a usar el `ORDER BY` para enumerar las tablas:
 
-<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 Vemos que es vulnerable a una SQLi, pero necesitamos confirmar cuantas columnas tiene, para ello, seguimos aumentando el número del `ORDER BY`. Hasta que llegamos a 4 y nos da un error. En ese punto sabemos que hay 3 columnas:
 
-<figure><img src="../../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
 Aunque ya sabemos cuantas columnas hay, para resolver el lab, hay que añadir una fila de valores nulos:
 
-<figure><img src="../../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>

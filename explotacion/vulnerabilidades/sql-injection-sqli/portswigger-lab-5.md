@@ -12,7 +12,7 @@ description: >-
 >
 > Para resolver el laboratorio, realice un ataque UNION de inyección SQL que recupere todos los nombres de usuario y contraseñas, y use la información para iniciar sesión como `administrator` usuario.
 
-Comprobamos el número de cloumnas (ya lo sabemos por el enunciado):
+Comprobamos el número de columnas (ya lo sabemos por el enunciado):
 
 <figure><img src="../../../.gitbook/assets/image (119).png" alt=""><figcaption></figcaption></figure>
 

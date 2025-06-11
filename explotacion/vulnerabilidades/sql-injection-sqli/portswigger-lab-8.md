@@ -2,6 +2,7 @@
 description: >-
   Resolución del 8º laboratorio de SQL injection attack, listing the database
   contents on non-Oracle databases
+cover: ../../../.gitbook/assets/Banner Gitbook sql port8.png
 coverY: 0
 ---
 

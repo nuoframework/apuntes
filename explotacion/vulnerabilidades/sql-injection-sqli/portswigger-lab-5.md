@@ -2,6 +2,8 @@
 description: >-
   Resolución del 5º laboratorio de SQL injection UNION attack, retrieving data
   from other tables
+cover: ../../../.gitbook/assets/Banner Gitbook sql port5.png
+coverY: 0
 ---
 
 # 🧪 PortSwigger Lab 5

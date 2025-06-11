@@ -2,6 +2,8 @@
 description: >-
   Resolución del 6º laboratorio de SQL injection UNION attack, retrieving
   multiple values in a single column
+cover: ../../../.gitbook/assets/Banner Gitbook sql port6.png
+coverY: 0
 ---
 
 # 🧪 PortSwigger Lab 6

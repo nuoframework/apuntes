@@ -2,6 +2,8 @@
 description: >-
   Resolución del 3º laboratorio de SQLi de PortSwigger. SQL injection UNION
   attack, determining the number of columns returned by the query
+cover: ../../../.gitbook/assets/Banner Gitbook sql port3.png
+coverY: 0
 ---
 
 # 🧪 PortSwigger Lab 3

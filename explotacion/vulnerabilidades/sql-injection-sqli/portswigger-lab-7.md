@@ -2,6 +2,8 @@
 description: >-
   Resolución del 7º laboratorio de SQL injection attack, querying the database
   type and version on MySQL and Microsoft
+cover: ../../../.gitbook/assets/Banner Gitbook sql port7.png
+coverY: 0
 ---
 
 # 🧪 PortSwigger Lab 7

@@ -1,5 +1,7 @@
 ---
 description: Resolución del 2º laboratorio de SQLi de PortSwigger
+cover: ../../../.gitbook/assets/Banner Gitbook sql port2.png
+coverY: 0
 ---
 
 # 🧪 PortSwigger Lab 2

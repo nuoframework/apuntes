@@ -1,5 +1,7 @@
 ---
 description: Resolución del 1º laboratorio de SQLi de PortSwigger
+cover: ../../../.gitbook/assets/Banner Gitbook sql port1.png
+coverY: 0
 ---
 
 # 🧪 PortSwigger Lab 1
@@ -26,15 +28,7 @@ En este caso lo que hacemos es añadir una comilla simple y a continuación aña
 
 Esta es la prueba de que este parámetro es vulnerable a SQLi, pero si nos fijamos en el antes y el después:&#x20;
 
-<div>
-
-<figure><img src="../../../.gitbook/assets/imagen (9).png" alt=""><figcaption></figcaption></figure>
-
- 
-
-<figure><img src="../../../.gitbook/assets/imagen (1).png" alt=""><figcaption></figcaption></figure>
-
-</div>
+<div><figure><img src="../../../.gitbook/assets/imagen (9).png" alt=""><figcaption></figcaption></figure> <figure><img src="../../../.gitbook/assets/imagen (1).png" alt=""><figcaption></figcaption></figure></div>
 
 Como podemos observar, cuando hacemos la SQLi, y comentamos el posible codigo que exista detrás del parámetro, se añade un producto a la web. Esto pasa porque la consulta que se realiza por detrás es esta:
 

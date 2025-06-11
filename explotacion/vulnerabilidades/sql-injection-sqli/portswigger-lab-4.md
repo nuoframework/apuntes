@@ -2,6 +2,8 @@
 description: >-
   Resolución del 4º laboratorio de SQL injection UNION attack, finding a column
   containing text
+cover: ../../../.gitbook/assets/Banner Gitbook sql port4.png
+coverY: 0
 ---
 
 # 🧪 PortSwigger Lab 4

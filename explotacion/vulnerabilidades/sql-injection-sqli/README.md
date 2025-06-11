@@ -1,5 +1,5 @@
 ---
-cover: ../../../.gitbook/assets/Banner Gitbook.png
+cover: ../../../.gitbook/assets/Banner Gitbook sqli.png
 coverY: 0
 layout:
   cover:

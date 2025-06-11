@@ -2,7 +2,7 @@
 description: >-
   Bienvenido a web de documentación de Nuoframework acerca del Pentesting en Red
   Tem / Seguridad Ofensiva
-cover: .gitbook/assets/fondo.png
+cover: .gitbook/assets/Banner Gitbook - copia (1).png
 coverY: 0
 layout:
   cover:

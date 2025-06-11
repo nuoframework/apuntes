@@ -1,3 +1,22 @@
+---
+cover: ../../../.gitbook/assets/Banner Gitbook.png
+coverY: 0
+layout:
+  cover:
+    visible: true
+    size: full
+  title:
+    visible: true
+  description:
+    visible: true
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
+---
+
 # SQL Injection (SQLi)
 
 ## ¿Que es una inyección SQL?
